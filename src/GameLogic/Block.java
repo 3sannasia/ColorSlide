@@ -1,5 +1,4 @@
 package src.GameLogic;
-
 public class Block {
     private Enum color;
     private int x_pos;
