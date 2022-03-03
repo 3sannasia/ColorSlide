@@ -10,7 +10,7 @@ public class ScreenRenderer extends JComponent{
 	private final int WINDOW_HEIGHT;
 
 	// generic declarations for testing
-	private Board currentBoard;
+	private LevelBoard currentBoard;
 	private Block block1;
 	private Block block2;
 	private Block block3;
@@ -23,11 +23,11 @@ public class ScreenRenderer extends JComponent{
 		WINDOW_HEIGHT = height;
 
 		// Generic assignments for testing
-		currentBoard = new Board(500, 400);
+		currentBoard = new LevelBoard(500, 400);
 
-		block1 = new Block(Colors.RED, 500, 400);
-		block2 = new Block(Colors.YELLOW, 300, 200);
-		block3 = new Block(Colors.BLUE, 600, 300);
+		block1 = new Block(ColorType.RED, 500, 400);
+		block2 = new Block(ColorType.YELLOW, 300, 200);
+		block3 = new Block(ColorType.BLUE, 600, 300);
     }
 
 	//-------- Driver Paint function (called automatically) --------//
@@ -62,11 +62,11 @@ public class ScreenRenderer extends JComponent{
 	public void drawBlock(Graphics2D g, Block block){
 
 		// Reading private data through getter functions to render accordingly
-		if(block.getColor() == Colors.RED){
+		if(block.getColor() == ColorType.RED){
 			g.setColor(new Color(255, 0, 0));
-		}else if(block.getColor() == Colors.YELLOW){
+		}else if(block.getColor() == ColorType.YELLOW){
 			g.setColor(new Color(200, 200, 0));
-		}else if(block.getColor() == Colors.BLUE){
+		}else if(block.getColor() == ColorType.BLUE){
 			g.setColor(new Color(0, 0, 255));
 		}else {
 			g.setColor(new Color(255, 255, 255));
