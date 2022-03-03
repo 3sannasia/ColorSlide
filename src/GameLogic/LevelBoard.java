@@ -26,6 +26,12 @@ public class LevelBoard {
         blocks.add(block);
     }
 
+    //-------- Critical Getters for GUI --------//
+
+    public int getBlocks() {
+        return blocks;
+    }
+
     //-------- Spatial Get/Set --------//
 
     public int getWidth() {
