@@ -28,7 +28,7 @@ public class LevelBoard {
 
     //-------- Critical Getters for GUI --------//
 
-    public int getBlocks() {
+    public ArrayList<Block> getBlocks() {
         return blocks;
     }
 
