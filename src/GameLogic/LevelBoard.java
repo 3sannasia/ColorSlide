@@ -9,17 +9,20 @@ public class LevelBoard {
 
     private final int SCALE;
 
+    private Goal target;
+
     private ArrayList<Block> blocks;
 
     //-------- Construction Functions --------//
 
-    public LevelBoard(int width, int height, int scale) {
+    public LevelBoard(int width, int height, int scale, Goal g) {
 
         this.width = width;
         this.height = height;
 
         this.SCALE = scale;
 
+        this.target = g;
     }
 
     public void AddBlock (Block block){
