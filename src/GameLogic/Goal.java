@@ -64,7 +64,7 @@ public class Goal {
     */
     public boolean match(Block potential)
     {
-        return ((potential.getX_pos() == x_pos) && (potential.getY_pos() == y_pos) 
+        return ((potential.getX() == x_pos) && (potential.getY() == y_pos) 
         && (potential.getColor() == color) && (potential.getWidth() == width) && (potential.getHeight() == height));
     }
 

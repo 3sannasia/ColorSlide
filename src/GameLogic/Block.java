@@ -3,14 +3,14 @@ public class Block {
 
     //-------- Spatial --------//
 
-    private int x_pos;
-    private int y_pos;
+    private int x;
+    private int y;
 
     private int width;
     private int height;
 
-    private int x_vel;
-    private int y_vel;
+    private int xVel;
+    private int yVel;
 
     //-------- Color --------//
 
@@ -18,36 +18,31 @@ public class Block {
 
     //-------- Constructor --------//
 
-    public Block(ColorType color, int x_pos, int y_pos, int width, int height) {
+    public Block(ColorType colorSet, int xSet, int ySet, int widthSet, int heightSet) {
 
-        this.color = color;
-
-        this.x_pos = x_pos;
-        this.y_pos = y_pos;
-
-        this.width = width;
-        this.height = height;
-
-        x_vel = 0;
-        y_vel = 0;
+        // Set Spatial and Color Variables
+        color = colorSet;
+        x = xSet;
+        y = ySet;
+        width = widthSet;
+        height = heightSet;
+        xVel = 0;
+        yVel = 0;
     }
 
-    //-------- Spatial Get/Set --------//
+    //-------- Spatial Getters --------//
 
-    public int getY_pos() {
-        return y_pos;
+    // Basic information printer for Console
+    public String getBlockInfo() {
+        return "Block: X " + x + ", Y " + y + ", Width " + width + ", Height " + height + ", Color: " + color;
     }
 
-    public void setY_pos(int y_pos) {
-        this.y_pos = y_pos;
+    public int getY() {
+        return y;
     }
 
-    public int getX_pos() {
-        return x_pos;
-    }
-
-    public void setX_pos(int x_pos) {
-        this.x_pos = x_pos;
+    public int getX() {
+        return x;
     }
 
     public int getHeight() {
@@ -66,84 +61,105 @@ public class Block {
 
     public void setColor(ColorType color) {
         this.color = color;
-    }    
+    }
 
     //-------- Block Manipulation --------//
 
     public void update() {
-        this.x_pos += this.x_vel;
-        this.y_pos += this.y_vel;
+        this.x += this.xVel;
+        this.y += this.yVel;
     }    
 
-    public void recenter(int scale) {
-        this.x_pos = this.x_pos % scale;
-        this.y_pos = this.y_pos % scale;
+    // Move back one step if needed
+    public void backPedal() {
+        this.x -= this.xVel;
+        this.y -= this.yVel;
     }
 
+    // Set velocities to 0
+    public void stop() {
+        this.xVel = 0;
+        this.yVel = 0;
+    }
+
+    // Set a velocity based on push direction
     public void push(Direction dir, int speed) {
         if(dir == Direction.UP){
-            y_vel = -speed;
+            yVel = -speed;
         }else if(dir == Direction.DOWN){
-            y_vel = speed;
+            yVel = speed;
         }else if(dir == Direction.LEFT){
-            x_vel = -speed;
+            xVel = -speed;
         }else if(dir == Direction.RIGHT){
-            x_vel = speed;
+            xVel = speed;
         }
     }
 
-    public void stop() {
-        this.x_vel = 0;
-        this.y_vel = 0;
+    // Shift position to closest lattice point on ((x * SCALE), (y * SCALE))
+    public void recenter(int scale) {
+        this.x = this.x - (this.x % scale);
+        this.y = this.y - (this.y % scale);
     }
 
-    //-------- Status Checks --------//
+    //-------- Movement Status Checks --------//
     
     public boolean isMoving() {
-        return (x_vel != 0) || (y_vel != 0);
+        return (xVel != 0) || (yVel != 0);
     }
 
-    public Direction direction() {
+    public Direction getDirection() {
         if(isMoving()){
             return Direction.STILL;
         }
-        return  y_vel < 0 ? Direction.UP : 
-                y_vel > 0 ? Direction.DOWN :
-                x_vel < 0 ? Direction.RIGHT :
+        return  yVel < 0 ? Direction.UP : 
+                yVel > 0 ? Direction.DOWN :
+                xVel < 0 ? Direction.RIGHT :
                 Direction.LEFT;
     }
 
-    public boolean coordinatesIn(int x, int y) {
+    // Check if (x, y) is within the bounds of the block (useful for collision detection)
+    public boolean containsCoordsExclusive(int pointX, int pointY) {
         return 
             // horizantal bounds
-            getX_pos() < x && getX_pos() + getWidth() > x && 
+            x < pointX && x + width > pointX && 
             // vertical bounds
-            getY_pos() < y && getY_pos() + getHeight() > y; 
-    }    
-
-    public boolean isCollidingWith(Block other){
-
-        // function assumes that we're examining the moving block and potential collisions with other blocks.
-        if(isMoving() && other.isMoving()){
-
-            // Two blocks aren't supposed to be moving at once... Bro, you broke it didn't you.
-            return true;
-        }
-
-        return isMoving() && 
-            // approach from above check
-            (direction() == Direction.UP    && other.coordinatesIn(getX_pos(), getY_pos()) && other.coordinatesIn(getX_pos() + getWidth(), getY_pos()))  || 
-            // approach from below check
-            (direction() == Direction.DOWN  && other.coordinatesIn(getX_pos(), getY_pos() + getHeight()) && other.coordinatesIn(getX_pos() + getWidth(), getY_pos() + getHeight())) ||
-            // approach from left check
-            (direction() == Direction.LEFT  && other.coordinatesIn(getX_pos(), getY_pos()) && other.coordinatesIn(getX_pos(), getY_pos() + getHeight())) || 
-            // approach from right check
-            (direction() == Direction.RIGHT && other.coordinatesIn(getX_pos() + getWidth(), getY_pos()) && other.coordinatesIn(getX_pos() + getWidth(), getY_pos() + getHeight()));
+            y < pointY && y + height > pointY; 
     }
 
+    // Check if (x, y) is within or equal to the bounds of the block (useful for collision detection)
+    public boolean containsCoordsInclusive(int pointX, int pointY) {
+        return 
+            // horizantal bounds
+            x <= pointX && x + width >= pointX && 
+            // vertical bounds
+            y <= pointY && y + height >= pointY; 
+    }    
+
+    // Central Hitbox detection (Exclusive)
+    public boolean isCollidingWith(Block other){
+        return isMoving() && 
+            // if other contains upper left corner
+            other.containsCoordsExclusive(getX(), getY()) ||  
+            // if other contains lower left corner
+            other.containsCoordsExclusive(getX(), getY() + getHeight())  ||
+            // if other contains upper right corner
+            other.containsCoordsExclusive(getX() + getWidth(), getY())  ||
+            // if other contains lower right corner
+            other.containsCoordsExclusive(getX() + getWidth(), getY() + getHeight());
+    }
 
     //-------- Color Mixing --------//
 
+    // Return the corect color by mixing two primaries, else White as default
+    public static ColorType colorMix(ColorType color1, ColorType color2){
 
+        // Refer to the color hash values
+        int colorMix = color1.hashValue * color2.hashValue;
+
+        return colorMix == 6 ? ColorType.ORANGE : 
+               colorMix == 15 ? ColorType.GREEN : 
+               colorMix == 10 ? ColorType.PURPLE : 
+               ColorType.WHITE_NEUTRAL;
+    }
 
 }
