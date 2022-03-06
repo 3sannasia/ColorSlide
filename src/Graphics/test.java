@@ -1,10 +1,10 @@
 package src.Graphics;
-import javax.swing.JFrame;
+// import javax.swing.JFrame;
 public class test {
 
-    public static void main(String[] args){
-        JFrame frame = new JFrame();
+    // public static void main(String[] args){
+    //     JFrame frame = new JFrame();
         
-    }
+    // }
     
 }

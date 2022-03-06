@@ -64,7 +64,7 @@ public class boardcomponent extends JComponent{
        }else {
            g.setColor(new Color(255, 255, 255));
        }
-       g.fillRect(block.getX_pos(), block.getY_pos(), 50, 50);
+       g.fillRect(block.getX(), block.getY(), 50, 50);
    }
  
 }

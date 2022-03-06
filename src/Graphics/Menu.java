@@ -34,8 +34,8 @@ public class Menu extends JFrame {
         frame.setSize(500, 500);
         frame.setVisible(true);
     }
-    public static void main(String[] args){
-        Menu menu = new Menu();
-    }
+    // public static void main(String[] args){
+    //     Menu menu = new Menu();
+    // }
     
 }

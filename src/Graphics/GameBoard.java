@@ -2,22 +2,22 @@ package src.Graphics;
  
 import java.awt.*;
 import java.awt.Container;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+// import java.awt.Graphics;
+// import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
  
 import javax.swing.*;
-import javax.swing.JComponent;
+// import javax.swing.JComponent;
  
-import src.GameLogic.Block;
-import src.GameLogic.ColorType;
+// import src.GameLogic.Block;
+// import src.GameLogic.ColorType;
 import src.GameLogic.LevelBoard;
  
 public class GameBoard extends JFrame implements ActionListener{
  
-   private final int WINDOW_WIDTH;
-   private final int WINDOW_HEIGHT;
+//    private final int WINDOW_WIDTH;
+//    private final int WINDOW_HEIGHT;
  
    // buttons
    private JButton up_button;
@@ -28,7 +28,7 @@ public class GameBoard extends JFrame implements ActionListener{
    private JLabel level_label;
  
    // generic declarations for testing
-   private LevelBoard currentBoard;
+//    private LevelBoard currentBoard;
  
  
    //-------- Construct with basic Board --------//
@@ -37,8 +37,8 @@ public class GameBoard extends JFrame implements ActionListener{
       
        super("Game Board");
  
-       WINDOW_WIDTH = width;
-       WINDOW_HEIGHT = height;
+    //    WINDOW_WIDTH = width;
+    //    WINDOW_HEIGHT = height;
  
       
        Container c = getContentPane();
@@ -52,10 +52,10 @@ public class GameBoard extends JFrame implements ActionListener{
        level_label = new JLabel("Level : 0");
       
        // location of all buttons
-       c.add(up_button, FlowLayout.LEADING);
-       c.add(down_button, FlowLayout.TRAILING);
-       c.add(left_button, FlowLayout.TRAILING);
-       c.add(right_button, FlowLayout.TRAILING);
+       c.add(up_button, BorderLayout.NORTH);
+       c.add(down_button, BorderLayout.SOUTH);
+       c.add(left_button, BorderLayout.WEST);
+       c.add(right_button, BorderLayout.EAST);
  
        c.add(level_label, BorderLayout.CENTER);
  
