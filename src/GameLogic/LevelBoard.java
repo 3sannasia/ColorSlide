@@ -1,6 +1,7 @@
 package src.GameLogic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -111,6 +112,48 @@ public class LevelBoard {
     // Helper to add goal
     public void AddGoal(Goal goal){
         target = goal;
+    }
+
+    //Helper to print the board for testing
+    public String boardStatus(){
+        // Set up character mapping but reversed
+        Map<ColorType, String> charMapReverse = new HashMap<>(){{
+            put(ColorType.GRAY_OBS, "X");
+            put(ColorType.RED, "R");
+            put(ColorType.ORANGE, "O");
+            put(ColorType.YELLOW, "Y");
+            put(ColorType.GREEN, "G");
+            put(ColorType.BLUE, "B");
+            put(ColorType.PURPLE, "P");
+            put(ColorType.WHITE_NEUTRAL, "W");
+        }};
+        String[][] brd = new String[height][width];
+        for(Block b: blocks)
+        {
+            String colr = "";
+            for(ColorType x: charMapReverse.keySet())
+            {
+                if(b.getColor() == x)
+                {
+                    colr = charMapReverse.get(x);
+                }
+            }
+            for(int i = b.getX(); i < b.getHeight(); i++)
+            {
+                for(int j = b.getY(); j < b.getWidth(); j++)
+                {
+                    brd[i][j] = colr;
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for(String[] x: brd)
+        {
+            String str = Arrays.toString(x);
+            sb.append(str.substring(1, str.length()-1));
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     //-------- Critical Getters for GUI --------//

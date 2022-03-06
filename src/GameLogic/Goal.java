@@ -1,8 +1,8 @@
 package src.GameLogic;
 
 public class Goal {
-    private int x_pos;
-    private int y_pos;
+    private int xPos;
+    private int yPos;
 
     private int width;
     private int height;
@@ -11,28 +11,28 @@ public class Goal {
 
     //Can NOT move, unlike Blocks
 
-    public Goal(int x_pos, int y_pos, int width, int height, ColorType color) {
-        this.x_pos = x_pos;
-        this.y_pos = y_pos;
+    public Goal(int xPos, int yPos, int width, int height, ColorType color) {
+        this.xPos = xPos;
+        this.yPos = yPos;
         this.width = width;
         this.height = height;
         this.color = color;
     }
 
-    public int getX_pos() {
-        return x_pos;
+    public int getX() {
+        return xPos;
     }
 
-    public void setX_pos(int x_pos) {
-        this.x_pos = x_pos;
+    public void setX(int xPos) {
+        this.xPos = xPos;
     }
 
-    public int getY_pos() {
-        return y_pos;
+    public int getY() {
+        return yPos;
     }
 
-    public void setY_pos(int y_pos) {
-        this.y_pos = y_pos;
+    public void setY(int y_pos) {
+        this.yPos = yPos;
     }
 
     public int getWidth() {
@@ -64,7 +64,7 @@ public class Goal {
     */
     public boolean match(Block potential)
     {
-        return ((potential.getX() == x_pos) && (potential.getY() == y_pos) 
+        return ((potential.getX() == xPos) && (potential.getY() == yPos) 
         && (potential.getColor() == color) && (potential.getWidth() == width) && (potential.getHeight() == height));
     }
 
