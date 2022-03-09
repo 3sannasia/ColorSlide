@@ -46,7 +46,7 @@ public class GameBoard extends JFrame implements ActionListener{
        Container c = getContentPane();
        c.setBackground(Color.BLACK);
 
-        c.setLayout(new BorderLayout(75, 75));
+        c.setLayout(new BorderLayout());
         grid = new BoardGrid();
        up_button = new JButton("^");
        up_button.setBackground(Color.DARK_GRAY);
