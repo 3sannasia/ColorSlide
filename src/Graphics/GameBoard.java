@@ -46,7 +46,7 @@ public class GameBoard extends JFrame implements ActionListener{
        Container c = getContentPane();
        c.setBackground(Color.BLACK);
 
-        c.setLayout(new BorderLayout());
+        c.setLayout(new BorderLayout(100, 100));
         grid = new BoardGrid();
        up_button = new JButton("^");
        up_button.setBackground(Color.DARK_GRAY);
@@ -64,7 +64,7 @@ public class GameBoard extends JFrame implements ActionListener{
     //    level_label = new JLabel("Level : 0");
 
        // location of all buttons
-       c.add(BorderLayout.NORTH, up_button);
+       c.add(BorderLayout.PAGE_START, up_button);
        c.add(BorderLayout.SOUTH, down_button);
        c.add(BorderLayout.WEST, left_button);
        c.add(BorderLayout.EAST, right_button);
