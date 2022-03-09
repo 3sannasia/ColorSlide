@@ -13,9 +13,8 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){
                 final int WIDTH = 800;
-                final int HEIGHT = 500;
+                final int HEIGHT = 800;
                 LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100);
-                System.out.println("pls work");
                 GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
                 frame.setSize(WIDTH, HEIGHT);
                 frame.setResizable(false);
@@ -23,6 +22,7 @@ public class Main {
 
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setVisible(true);
+
 
                 // Try reading in a Test Case
             

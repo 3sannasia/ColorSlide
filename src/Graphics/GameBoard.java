@@ -25,6 +25,8 @@ public class GameBoard extends JFrame implements ActionListener{
    private JButton left_button;
    private JButton right_button;
  
+
+   private JPanel grid;
    private JLabel level_label;
  
    // generic declarations for testing
@@ -42,22 +44,36 @@ public class GameBoard extends JFrame implements ActionListener{
  
       
        Container c = getContentPane();
+       c.setBackground(Color.BLACK);
+
+        c.setLayout(new BorderLayout(75, 75));
+        grid = new BoardGrid();
+       up_button = new JButton("^");
+       up_button.setBackground(Color.DARK_GRAY);
+
+       down_button = new JButton("v");
+       down_button.setBackground(Color.DARK_GRAY);
+
+       left_button = new JButton("<");
+       left_button.setBackground(Color.DARK_GRAY);
+
+       right_button = new JButton(">");
+       right_button.setBackground(Color.DARK_GRAY);
+
  
- 
-       up_button = new JButton("Up");
-       down_button = new JButton("Down");
-       left_button = new JButton("Left");
-       right_button = new JButton("Right");
- 
-       level_label = new JLabel("Level : 0");
-      
+    //    level_label = new JLabel("Level : 0");
+
        // location of all buttons
-       c.add(up_button, BorderLayout.NORTH);
-       c.add(down_button, BorderLayout.SOUTH);
-       c.add(left_button, BorderLayout.WEST);
-       c.add(right_button, BorderLayout.EAST);
+       c.add(BorderLayout.NORTH, up_button);
+       c.add(BorderLayout.SOUTH, down_button);
+       c.add(BorderLayout.WEST, left_button);
+       c.add(BorderLayout.EAST, right_button);
+
+       c.add(BorderLayout.CENTER, grid);
+
+       
  
-       c.add(level_label, BorderLayout.CENTER);
+    //    add(level_label, BorderLayout.CENTER);
  
        // button onclick
        up_button.addActionListener(this);
