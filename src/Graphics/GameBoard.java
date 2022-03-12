@@ -38,10 +38,6 @@ public class GameBoard extends JFrame implements ActionListener{
    public GameBoard(int width, int height, LevelBoard l) {
       
        super("Game Board");
- 
-    //    WINDOW_WIDTH = width;
-    //    WINDOW_HEIGHT = height;
- 
       
        Container c = getContentPane();
        c.setBackground(Color.BLACK);
@@ -91,19 +87,19 @@ public class GameBoard extends JFrame implements ActionListener{
    @Override
    public void actionPerformed(ActionEvent e) {
        // TODO Auto-generated method stub
-       if(e.getActionCommand().equals("Up")){
+       if(e.getActionCommand().equals("^")){
  
            System.out.println("up");
  
-       }else if(e.getActionCommand().equals("Down")){
+       }else if(e.getActionCommand().equals("v")){
  
            System.out.println("down");
  
-       }else if(e.getActionCommand().equals("Left")){
+       }else if(e.getActionCommand().equals("<")){
  
            System.out.println("left");
  
-       }else if(e.getActionCommand().equals("Right")){
+       }else if(e.getActionCommand().equals(">")){
  
            System.out.println("right");
  
