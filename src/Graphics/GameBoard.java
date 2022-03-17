@@ -68,8 +68,7 @@ public class GameBoard extends JFrame implements ActionListener{
        c.add(BorderLayout.CENTER, grid);
 
        
- 
-    //    add(level_label, BorderLayout.CENTER);
+
  
        // button onclick
        up_button.addActionListener(this);
