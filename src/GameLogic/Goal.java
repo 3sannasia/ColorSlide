@@ -1,71 +1,73 @@
 package src.GameLogic;
 
 public class Goal {
-    private int x_pos;
-    private int y_pos;
+
+    //-------- Spatial --------//
+
+    private int x;
+    private int y;
 
     private int width;
     private int height;
 
+    //-------- Color --------//
+
     private ColorType color;
 
-    //Can NOT move, unlike Blocks
+    //-------- Constructor --------//
 
-    public Goal(int x_pos, int y_pos, int width, int height, ColorType color) {
-        this.x_pos = x_pos;
-        this.y_pos = y_pos;
-        this.width = width;
-        this.height = height;
-        this.color = color;
+    public Goal(ColorType colorSet, int xSet, int ySet, int widthSet, int heightSet) {
+
+        // Set Spatial and Color Variables
+        color = colorSet;
+        x = xSet;
+        y = ySet;
+        width = widthSet;
+        height = heightSet;
     }
 
-    public int getX_pos() {
-        return x_pos;
+    //-------- Spatial Getters --------//
+
+    public int getX() {
+        return x;
     }
 
-    public void setX_pos(int x_pos) {
-        this.x_pos = x_pos;
-    }
-
-    public int getY_pos() {
-        return y_pos;
-    }
-
-    public void setY_pos(int y_pos) {
-        this.y_pos = y_pos;
+    public int getY() {
+        return y;
     }
 
     public int getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public ColorType getColor() {
         return color;
     }
 
-    public void setColor(ColorType color) {
-        this.color = color;
+    public int getClosestLatticeX(int scale) {
+        return this.x - (this.x % scale);
+    }
+
+    public int getClosestLatticeY(int scale) {
+        return this.y - (this.y % scale);
     }
     
-    /*
-    Check that the block matches with the target to determine if the player has completed the level.
-    */
-    public boolean match(Block potential)
-    {
-        return ((potential.getX() == x_pos) && (potential.getY() == y_pos) 
-        && (potential.getColor() == color) && (potential.getWidth() == width) && (potential.getHeight() == height));
+    //-------- Status Checks with Blocks --------//
+
+    public boolean Satisfied(Block potential) {
+
+        // Goal is satisfied if block is not moving and dims align
+        return (!potential.isMoving() &&
+            
+                (potential.getColor() == color) &&
+                (potential.getX() == x) && 
+                (potential.getY() == y) &&
+                (potential.getWidth() == width) && 
+                (potential.getHeight() == height));
     }
 
 }

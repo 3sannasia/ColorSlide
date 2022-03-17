@@ -97,8 +97,16 @@ public class Block {
 
     // Shift position to closest lattice point on ((x * SCALE), (y * SCALE))
     public void recenter(int scale) {
-        this.x = this.x - (this.x % scale);
-        this.y = this.y - (this.y % scale);
+        this.x = getClosestLatticeX(scale);
+        this.y = getClosestLatticeY(scale);
+    }
+
+    public int getClosestLatticeX(int scale) {
+        return this.x - (this.x % scale);
+    }
+
+    public int getClosestLatticeY(int scale) {
+        return this.y - (this.y % scale);
     }
 
     //-------- Movement Status Checks --------//
@@ -145,21 +153,9 @@ public class Block {
             // if other contains upper right corner
             other.containsCoordsExclusive(getX() + getWidth(), getY())  ||
             // if other contains lower right corner
-            other.containsCoordsExclusive(getX() + getWidth(), getY() + getHeight());
+            other.containsCoordsExclusive(getX() + getWidth(), getY() + getHeight()) ||
+
+            // if other contains center (used if speed is too high and dims all match perfectly)
+            other.containsCoordsInclusive(getX() + getWidth() / 2, getY() + getHeight() / 2);
     }
-
-    //-------- Color Mixing --------//
-
-    // Return the corect color by mixing two primaries, else White as default
-    public static ColorType colorMix(ColorType color1, ColorType color2){
-
-        // Refer to the color hash values
-        int colorMix = color1.hashValue * color2.hashValue;
-
-        return colorMix == 6 ? ColorType.ORANGE : 
-               colorMix == 15 ? ColorType.GREEN : 
-               colorMix == 10 ? ColorType.PURPLE : 
-               ColorType.WHITE_NEUTRAL;
-    }
-
 }
