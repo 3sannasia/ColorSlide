@@ -1,38 +1,44 @@
 package src;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
-import src.GameLogic.Direction;
+import src.Graphics.*;
+
+// import src.GameLogic.Direction;
 import src.GameLogic.LevelBoard;
 
 public class Main {
     public static void main (String[] args) {
+        SwingUtilities.invokeLater(new Runnable(){
+            public void run(){
+                final int WIDTH = 800;
+                final int HEIGHT = 800;
+                LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100);
+                GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
+                frame.setSize(WIDTH, HEIGHT);
+                frame.setResizable(false);
 
-        // final int WIDTH = 800;
-        // final int HEIGHT = 500;
-        // JFrame frame = new JFrame("Menu Screen");
-        // frame.setSize(WIDTH, HEIGHT);
-        // frame.setResizable(false);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setVisible(true);
 
-        // ScreenRenderer renderer = new ScreenRenderer(WIDTH, HEIGHT);
-		// frame.add(renderer);
+                // Try reading in a Test Case
+            
+                // Try reading in and working Test Case
+                // LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100, 100);
+                // System.out.println(level.getLevelInfo());
 
-        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // frame.setVisible(true);
+                // int indexRedBlock1 = level.BlockIndexAt(650, 150);
 
-        // Try reading in and working Test Case
-        LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100, 100);
-        System.out.println(level.getLevelInfo());
+                // level.push(indexRedBlock1, Direction.LEFT);
 
-        int indexRedBlock1 = level.BlockIndexAt(650, 150);
-
-        level.push(indexRedBlock1, Direction.LEFT);
-
-        for(int i = 0; i < 6; i++){
-            level.update();
-            System.out.println(level.getBoardGrid());
-            System.out.println(level.getBlocks().get(indexRedBlock1).getBlockInfo());
-            System.out.println(level.isComplete());
-        }
+                // for(int i = 0; i < 6; i++){
+                //     level.update();
+                //     System.out.println(level.getBoardGrid());
+                //     System.out.println(level.getBlocks().get(indexRedBlock1).getBlockInfo());
+                //     System.out.println(level.isComplete());
+                // }
+            }
+        });
     }
 }
