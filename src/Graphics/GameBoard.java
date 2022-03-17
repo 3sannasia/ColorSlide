@@ -9,7 +9,8 @@ import java.awt.event.ActionListener;
  
 import javax.swing.*;
 // import javax.swing.JComponent;
- 
+
+import src.GameLogic.ColorType;
 // import src.GameLogic.Block;
 // import src.GameLogic.ColorType;
 import src.GameLogic.LevelBoard;
@@ -26,26 +27,32 @@ public class GameBoard extends JFrame implements ActionListener{
    private JButton right_button;
  
 
-   private JPanel grid;
+   private BoardGrid grid;
    private JLabel level_label;
  
    // generic declarations for testing
-//    private LevelBoard currentBoard;
+   private LevelBoard currentBoard;
  
  
    //-------- Construct with basic Board --------//
  
-   public GameBoard(int width, int height, LevelBoard l) {
+   public GameBoard(int width, int height, LevelBoard level) {
       
        super("Game Board");
-      
-       Container c = getContentPane();
-       c.setBackground(Color.BLACK);
 
+       //backend logic
+       currentBoard = level;
+      
+        Container c = getContentPane();
+        c.setBackground(Color.BLACK);
         c.setLayout(new BorderLayout(100, 100));
-        grid = new BoardGrid();
-       up_button = new JButton("^");
-       up_button.setBackground(Color.DARK_GRAY);
+
+        // GridBoard
+        grid = new BoardGrid(level);
+
+        // buttons
+        up_button = new JButton("^");
+        up_button.setBackground(Color.DARK_GRAY);
 
        down_button = new JButton("v");
        down_button.setBackground(Color.DARK_GRAY);
@@ -56,7 +63,7 @@ public class GameBoard extends JFrame implements ActionListener{
        right_button = new JButton(">");
        right_button.setBackground(Color.DARK_GRAY);
 
- 
+       // label for level
     //    level_label = new JLabel("Level : 0");
 
        // location of all buttons
@@ -66,9 +73,7 @@ public class GameBoard extends JFrame implements ActionListener{
        c.add(BorderLayout.EAST, right_button);
 
        c.add(BorderLayout.CENTER, grid);
-
-       
-
+    //    c.add(BorderLayout.CENTER, level_label);
  
        // button onclick
        up_button.addActionListener(this);
@@ -89,18 +94,24 @@ public class GameBoard extends JFrame implements ActionListener{
        if(e.getActionCommand().equals("^")){
  
            System.out.println("up");
+           currentBoard.getBlocks().get(0).setColor(ColorType.PURPLE);
+           grid.DrawBoardGrid();
+           
  
        }else if(e.getActionCommand().equals("v")){
  
            System.out.println("down");
+           grid.DrawBoardGrid();
  
        }else if(e.getActionCommand().equals("<")){
  
            System.out.println("left");
+           grid.DrawBoardGrid();
  
        }else if(e.getActionCommand().equals(">")){
  
            System.out.println("right");
+           grid.DrawBoardGrid();
  
        }
       
