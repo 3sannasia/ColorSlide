@@ -14,13 +14,27 @@ public class Main {
             public void run(){
                 final int WIDTH = 800;
                 final int HEIGHT = 800;
-                LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100);
-                GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
-                frame.setSize(WIDTH, HEIGHT);
-                frame.setResizable(false);
+                Menu menu = new Menu(WIDTH, HEIGHT);
+                if (menu.getGameStarted()) {
+                    LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100);
+                    GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
+                    frame.setSize(WIDTH, HEIGHT);
+                    frame.setResizable(false);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setVisible(true);
+                } else if (menu.getPreviousLevelPressed()) {
+                    LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100); // Replace with previous level .txt
+                    GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
+                    frame.setSize(WIDTH, HEIGHT);
+                    frame.setResizable(false);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setVisible(true);
+                } else if (menu.getInstructionsPressed()) {
+                    Instructions instructionScreen = new Instructions(WIDTH, HEIGHT);
+                }
+                
 
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setVisible(true);
+               
 
                 // Try reading in a Test Case
             
