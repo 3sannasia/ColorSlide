@@ -16,10 +16,19 @@ public class BoardGrid extends JPanel {
     LevelBoard level_;
     GridBagConstraints gbc;
     
-    // public void repaint() {
+    // Maybe this for the other colored blocks to merge
+    public void repaint(Color color) {  
+        Graphics g = makePanel(color).getGraphics();
+        g.setColor(color);
+        // g.drawRect(x, y, width, height);
+        // g.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
 
-    // }
+        //use makepanel to return panel and use it to call repaint
 
+
+    }
+
+    // Maybe this for goal block
     @Override
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -27,11 +36,11 @@ public class BoardGrid extends JPanel {
         //how to pass position
         g.drawRect(0, 0, 100, 100);
         g.fillRect(0, 0, 100, 100);
+        
         // DISCLAIMER: Currently it draws red rectangle but below the white grid squares
 
-        //we can have a repaint() function to recolor the block and not change the size
 	}
-    
+
         public void DrawBoardGrid(){
 
             // 2D grid is made
