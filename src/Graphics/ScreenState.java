@@ -35,7 +35,7 @@ public class ScreenState {
     // Adds board and level components to screen
     public void startGame(JFrame frame) {
         frame.dispose();
-
+        // Graphics2D g2d = (Graphics2D) g;
         // Creates and shows the Game Board
         LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100);
         GameBoard board = new GameBoard(width, height, level);
@@ -75,6 +75,7 @@ public class ScreenState {
     // Creates the instruction screen components
     public void displayInstructions(JFrame frame){
         frame.dispose();
+        frame.setResizable(false);
         Instructions instructions = new Instructions();
     }
 }
