@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
-
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
@@ -40,6 +40,7 @@ public class LevelBoard {
         setSpeed(speed);
     }
 
+    // Build a level from a textfile, with an explicitly defined scale
     public LevelBoard(String fileName, int scale) {
 
         // Set Scale
@@ -53,20 +54,6 @@ public class LevelBoard {
             BufferedReader lineReader = new BufferedReader(new FileReader(fileName));
             String nextline = lineReader.readLine();
 
-            // Set up character mapping
-            Map<String, ColorType> charMap = new HashMap<>(){{
-                put("X", ColorType.GRAY_OBS);
-                put("W", ColorType.WHITE_NEUTRAL);
-
-                put("R", ColorType.RED);
-                put("Y", ColorType.YELLOW);
-                put("B", ColorType.BLUE);
-                
-                put("O", ColorType.ORANGE);
-                put("G", ColorType.GREEN);
-                put("P", ColorType.PURPLE);
-            }};
-
             // Reading in width and height
             String[] params = nextline.split(" ");
             width = Integer.parseInt(params[0]) * scale;
@@ -77,42 +64,7 @@ public class LevelBoard {
             blocks = new ArrayList<Block>();
             int rowNum = 0;
 			while (nextline != null) {
-                String[] items = nextline.split(" ");
-                for(int columnNum = 0; columnNum < items.length; columnNum++){
-                    String item = items[columnNum];
-
-                    // If we're at an endline, skip
-                    if(item.length() != 3){
-                        continue;
-                    }
-
-                    String id = item.substring(0, 1);
-                    ColorType obsColorType = charMap.get(id.toUpperCase());
-
-                    // If we're at a filler symbol like ., |, or -, skip (see text fille)
-                    if(obsColorType == null){
-                        continue;
-                    }
-
-                    // If ID is lowercase, make a goal
-                    if(id != id.toUpperCase()){
-                        SetGoal(new Goal(obsColorType,
-                            columnNum * SCALE,
-                            rowNum * SCALE,
-                            Integer.parseInt(item.substring(1, 2)) * SCALE,
-                            Integer.parseInt(item.substring(2, 3)) * SCALE
-                        ));
-                    }else{
-                    
-                        // Create Block at correct position, size, and color
-                        AddBlock(new Block(obsColorType,
-                            columnNum * SCALE,
-                            rowNum * SCALE,
-                            Integer.parseInt(item.substring(1, 2)) * SCALE,
-                            Integer.parseInt(item.substring(2, 3)) * SCALE
-                        ));
-                    }
-                }
+                readInRow(nextline, rowNum);
 				nextline = lineReader.readLine();
                 rowNum++;
 			}
@@ -128,13 +80,91 @@ public class LevelBoard {
         }
     }
 
+    // Build a level from a string, formatted in the same way as a textfile, with a scale specified in the text
+    public LevelBoard(String text){
+
+        String[] lines = text.split("\n");
+
+        // Reading in width, height, and scale
+        String[] params = lines[0].split(" ");
+        SCALE = Integer.parseInt(params[2]);
+        speed = SCALE;
+
+        width = Integer.parseInt(params[0]) * SCALE;
+        height = Integer.parseInt(params[1]) * SCALE;
+
+        blocks = new ArrayList<Block>();
+
+        for(int rowNum = 0; rowNum < height / SCALE; rowNum++){
+
+            // Read in board blocks
+            String nextline = lines[rowNum + 1];
+            readInRow(nextline, rowNum);
+        }
+    }
+
+    // Helper for parsing a string row
+    public void readInRow(String nextline, int rowNum){
+
+        // Set up character mapping
+        Map<String, ColorType> charMap = new HashMap<>(){{
+            put("X", ColorType.GRAY_OBS);
+            put("W", ColorType.WHITE_NEUTRAL);
+
+            put("R", ColorType.RED);
+            put("Y", ColorType.YELLOW);
+            put("B", ColorType.BLUE);
+            
+            put("O", ColorType.ORANGE);
+            put("G", ColorType.GREEN);
+            put("P", ColorType.PURPLE);
+        }};
+
+        String[] items = nextline.split(" ");
+        for(int columnNum = 0; columnNum < items.length; columnNum++){
+            String item = items[columnNum];
+
+            // If we're at an endline, skip
+            if(item.length() != 3){
+                continue;
+            }
+
+            String id = item.substring(0, 1);
+            ColorType obsColorType = charMap.get(id.toUpperCase());
+
+            // If we're at a filler symbol like ., |, or -, skip (see text fille)
+            if(obsColorType == null){
+                continue;
+            }
+
+            // If ID is lowercase, make a goal
+            if(id != id.toUpperCase()){
+                setGoal(new Goal(obsColorType,
+                    columnNum * SCALE,
+                    rowNum * SCALE,
+                    Integer.parseInt(item.substring(1, 2)) * SCALE,
+                    Integer.parseInt(item.substring(2, 3)) * SCALE
+                ));
+            }else{
+            
+                // Create Block at correct position, size, and color
+                addBlock(new Block(obsColorType,
+                    columnNum * SCALE,
+                    rowNum * SCALE,
+                    Integer.parseInt(item.substring(1, 2)) * SCALE,
+                    Integer.parseInt(item.substring(2, 3)) * SCALE
+                ));
+            }
+        }
+    }
+
     // Helper to add block
-    public void AddBlock(Block block){
+    public void addBlock(Block block){
         blocks.add(block);
     }
 
     // Helper to set goal
-    public void SetGoal(Goal goalSet){
+    public void setGoal(Goal goalSet){
         goal = goalSet;
     }
 
@@ -202,9 +232,9 @@ public class LevelBoard {
 
                 // If unfilled, use ., else use the given symbol
                 if(item == null){
-                    rowString = rowString + ".";
+                    rowString = rowString + ". ";
                 }else{
-                    rowString = rowString + item;
+                    rowString = rowString + item + " ";
                 }
             }
             grid = grid + rowString + "\n";
@@ -286,9 +316,18 @@ public class LevelBoard {
         }
     }
 
+    public void update(int numFrames){
+        for(int i = 0; i < numFrames; i++){
+            update();
+        }
+    }
+
     // Attempt to push a block of given index (returns if successful)
     public boolean push(int blockIndex, Direction dir){
         if(!isMoving()){
+            if(blocks.get(blockIndex).getColor() == ColorType.GRAY_OBS){
+                return false;
+            }
             (blocks.get(blockIndex)).push(dir, speed);
             return true;
         }
