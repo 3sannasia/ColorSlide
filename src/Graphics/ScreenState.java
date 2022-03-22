@@ -27,8 +27,6 @@ public class ScreenState {
         board.setResizable(false);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board.setVisible(true);
-        //Remember to take into account continueing a level from before
-        currentLevel++;;
 
     }
 
@@ -68,7 +66,7 @@ public class ScreenState {
             // Pop-up error message for the user
             // Could also just load in level 1 automatically
             JOptionPane.showMessageDialog(frame, "Invalid Level!",
-            "Error", JOptionPane.ERROR_MESSAGE);
+            "Back to Level 1", JOptionPane.ERROR_MESSAGE);
         }
     }
 
