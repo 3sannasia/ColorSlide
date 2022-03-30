@@ -11,6 +11,7 @@ public class BackendTest {
 
     LevelBoard playground1;
     LevelBoard playground2;
+    LevelBoard playground3;
 
     @Before
     public void setup() {
@@ -33,29 +34,35 @@ public class BackendTest {
 
         System.out.println("Setting up Playground 2 for Testing ...");
         playground2 = new LevelBoard(
-
-
-
-
-            // Yo Manuj make a test under testLevel1Loading for 2 also plz in addition to the other tests ty
-
-
-
-
-
             "10 10 100\n" + 
             "X91 --- --- --- --- --- --- --- --- X19\n" + 
-            "X19 r11 ... ... ... ... ... ... ... |||\n" + 
+            "X19 ... ... ... ... ... ... ... ... |||\n" + 
+            "||| ... ... ... ... X21 --- ... ... |||\n" + 
+            "||| R22 --- ... ... r22 ||| X12 ... |||\n" + 
+            "||| ||| ||| ... ... --- ||| ||| ... |||\n" + 
             "||| ... ... ... ... ... ... ... ... |||\n" + 
             "||| ... ... ... ... ... ... ... ... |||\n" + 
-            "||| ... ... ... ... ... ... ... ... |||\n" + 
-            "||| ... ... ... ... ... ... ... ... |||\n" + 
-            "||| ... ... ... ... ... ... ... ... |||\n" + 
-            "||| ... ... ... ... ... ... ... ... |||\n" + 
+            "||| ... ... ... ... R21 --- ... ... |||\n" + 
             "||| ... ... ... ... ... ... ... ... |||\n" + 
             "||| X91 --- --- --- --- --- --- --- ---"
         );
         System.out.println("Loaded Simulated Level 2.\n");
+
+        System.out.println("Setting up Playground 3 for Testing ...");
+        playground3 = new LevelBoard(
+            "10 10 100\n" + 
+            "X91 --- --- --- --- --- --- --- --- X19\n" + 
+            "X19 ... ... ... ... ... ... ... ... |||\n" + 
+            "||| ... ... ... ... X21 --- ... ... |||\n" + 
+            "||| R23 --- ... ... r22 ||| X12 ... |||\n" + 
+            "||| ||| ||| ... ... --- ||| ||| ... |||\n" + 
+            "||| ||| ||| ... ... ... ... ... ... |||\n" + 
+            "||| ... ... ... ... ... ... ... ... |||\n" + 
+            "||| ... ... ... ... R21 --- ... ... |||\n" + 
+            "||| ... ... ... ... ... ... ... ... |||\n" + 
+            "||| X91 --- --- --- --- --- --- --- ---"
+        );
+        System.out.println("Loaded Simulated Level 3.\n");
     }
 
     //-------- Make Sure Setup worked --------//
@@ -80,7 +87,53 @@ public class BackendTest {
         for(int i = 0; i < expected.length; i++){
             assertEquals(recieved[i], expected[i]);
         }
-        System.out.println("    Test Complete (Default PASSED): testLevelLoading.\n");
+        System.out.println("    Test Complete (Default PASSED): testLevelLoading1.\n");
+    }
+
+    @Test
+    public void testLevel2Loading() {
+
+        String[] recieved = playground2.getBoardGrid().split("\n");
+        String expectedLevel = 
+            "X X X X X X X X X X \n" + 
+            "X . . . . . . . . X \n" + 
+            "X . . . . X X . . X \n" + 
+            "X R R . . r r X . X \n" + 
+            "X R R . . r r X . X \n" + 
+            "X . . . . . . . . X \n" + 
+            "X . . . . . . . . X \n" + 
+            "X . . . . R R . . X \n" + 
+            "X . . . . . . . . X \n" + 
+            "X X X X X X X X X X ";
+        String[] expected = expectedLevel.split("\n");
+        
+        for(int i = 0; i < expected.length; i++){
+            assertEquals(recieved[i], expected[i]);
+        }
+        System.out.println("    Test Complete (Default PASSED): testLevelLoading2.\n");
+    }
+
+    @Test
+    public void testLevel3Loading() {
+
+        String[] recieved = playground3.getBoardGrid().split("\n");
+        String expectedLevel = 
+            "X X X X X X X X X X \n" + 
+            "X . . . . . . . . X \n" + 
+            "X . . . . X X . . X \n" + 
+            "X R R . . r r X . X \n" + 
+            "X R R . . r r X . X \n" + 
+            "X R R . . . . . . X \n" + 
+            "X . . . . . . . . X \n" + 
+            "X . . . . R R . . X \n" + 
+            "X . . . . . . . . X \n" + 
+            "X X X X X X X X X X ";
+        String[] expected = expectedLevel.split("\n");
+        
+        for(int i = 0; i < expected.length; i++){
+            assertEquals(recieved[i], expected[i]);
+        }
+        System.out.println("    Test Complete (Default PASSED): testLevelLoading3.\n");
     }
 
     //-------- Basic Movement Tests --------//
@@ -503,6 +556,62 @@ public class BackendTest {
             assertEquals(recieved[i], expected[i]);
         }
         System.out.println("    Test Complete (Default PASSED): noMergeSecSec.\n");
+    }
+
+    @Test
+    public void goalPartial() {
+
+        // Only partially filling the goal should not result in win
+        int block = playground2.BlockIndexAt(550, 750);
+        playground2.push(block, Direction.UP);
+        playground2.update(10);
+
+        assertEquals(false, playground2.isComplete());
+        
+        System.out.println("    Test Complete (Default PASSED): goalPartial.\n");
+    }
+
+    @Test
+    public void goalOverFilled() {
+
+        // Only partially filling the goal should not result in win
+        int block = playground3.BlockIndexAt(150, 350);
+        playground3.push(block, Direction.RIGHT);
+        playground3.update(10);
+
+        assertEquals(false, playground3.isComplete());
+        
+        System.out.println("    Test Complete (Default PASSED): goalOverFilled.\n");
+    }
+
+    @Test
+    public void goalSatisfied() {
+
+        // Fully filling the goal should result in win
+        int block = playground2.BlockIndexAt(150, 350);
+        playground2.push(block, Direction.RIGHT);
+        playground2.update(10);
+
+        assertEquals(true, playground2.isComplete());
+        
+        System.out.println("    Test Complete (Default PASSED): goalSatisfied.\n");
+    }
+
+    @Test
+    public void goalSatisfied2() {
+
+        // Pushing blocks against block at exact goal should not result in win due to merge
+        int block = playground2.BlockIndexAt(550, 750);
+        playground2.push(block, Direction.UP);
+        playground2.update(10);
+
+        block = playground2.BlockIndexAt(150, 350);
+        playground2.push(block, Direction.RIGHT);
+        playground2.update(10);
+
+        assertEquals(false, playground2.isComplete());
+        
+        System.out.println("    Test Complete (Default PASSED): goalSatisfied2.\n");
     }
 
 }
