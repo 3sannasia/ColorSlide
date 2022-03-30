@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import src.Graphics.*;
-
+import src.GameLogic.Direction;
 // import src.GameLogic.Direction;
 import src.GameLogic.LevelBoard;
 
@@ -14,7 +14,8 @@ public class Main {
             public void run(){
                 final int WIDTH = 800;
                 final int HEIGHT = 800;
-                LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100);
+                LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 50, 50);
+                // System.out.println(level.getLevelInfo());
                 GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
                 frame.setSize(WIDTH, HEIGHT);
                 frame.setResizable(false);
@@ -25,19 +26,18 @@ public class Main {
                 // Try reading in a Test Case
             
                 // Try reading in and working Test Case
-                // LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100, 100);
-                // System.out.println(level.getLevelInfo());
+            //     LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100, 100);
+            //     System.out.println(level.getLevelInfo());
 
-                // int indexRedBlock1 = level.BlockIndexAt(650, 150);
+            //     int indexRedBlock1 = level.BlockIndexAt(650, 150);
+            //     level.push(indexRedBlock1, Direction.LEFT);
 
-                // level.push(indexRedBlock1, Direction.LEFT);
-
-                // for(int i = 0; i < 6; i++){
-                //     level.update();
-                //     System.out.println(level.getBoardGrid());
-                //     System.out.println(level.getBlocks().get(indexRedBlock1).getBlockInfo());
-                //     System.out.println(level.isComplete());
-                // }
+            //     for(int i = 0; i < 6; i++){
+            //         level.update();
+            //         System.out.println(level.getBoardGrid());
+            //         System.out.println(level.getBlocks().get(indexRedBlock1).getBlockInfo());
+            //         System.out.println(level.isComplete());
+            //     }
             }
         });
     }

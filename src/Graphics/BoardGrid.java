@@ -16,58 +16,97 @@ public class BoardGrid extends JPanel {
     LevelBoard level_;
     GridBagConstraints gbc;
 
-    // @Override
-	// public void paint(Graphics g) {
-	// 	Graphics2D g2d = (Graphics2D) g;
-	// 	g2d.setColor(Color.RED);
-	// 	g2d.fillOval(0, 0, 30, 30);
-	// 	g2d.drawOval(0, 50, 30, 30);		
-	// 	g2d.fillRect(50, 0, 30, 30);
-	// 	g2d.drawRect(50, 50, 30, 30);
+    @Override
+	public void paint(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+        System.out.println(level_.getBoardGrid());
 
-	// 	g2d.draw(new Ellipse2D.Double(0, 100, 30, 30));
-	// }
+        for (int y = 0; y < 300; y+=50) {
+
+            for (int x =0 ; x < 500; x+=50) {
+
+                Color color = Color.CYAN;
+                System.out.println(x + " kjdfb " + y);
+                
+                
+                // displaying each block according to color
+                int blockIndex = level_.BlockIndexAt(x+25 , y+25 );
+               
+                if(blockIndex >=0){
+                ColorType blockColor = level_.getBlocks().get(blockIndex).getColor();
+                
+                if(blockColor==ColorType.RED){
+                    color = Color.RED;
+                }else if(blockColor==ColorType.YELLOW){
+                    color = Color.YELLOW;
+                }else if(blockColor==ColorType.BLUE){
+                    color = Color.BLUE;
+                }else if(blockColor==ColorType.GRAY_OBS){
+                    color = Color.GRAY;
+                }else if(blockColor==ColorType.WHITE_NEUTRAL){
+                    color = Color.WHITE;
+                }else if(blockColor==ColorType.GREEN){
+                    color = Color.GREEN;
+                }else if(blockColor==ColorType.ORANGE){
+                    color = Color.ORANGE;
+                }else if(blockColor==ColorType.PURPLE){
+                    color = Color.getHSBColor(7, 51, 51); // don't know if this works
+                }
+            }
+                
+                
+                g2d.setColor(color);
+		        g2d.fillRect(x , y, 40, 40);
+            }
+        }
+
+    }
+		
+
+
     
         public void DrawBoardGrid(){
             
 
 
             // 2D grid is made
-            for (int y = 0; y < 8; y++) {
-                gbc.gridx = y;
-                for (int x = 0; x < 8; x++) {
-                    gbc.gridx = x;
-                    Color color = Color.getHSBColor(7, 51, 59);
-                    level_.getBlocks().get(level_.BlockIndexAt(x, y)).setColor(ColorType.PURPLE);
+            // for (int y = 0; y < 8; y++) {
+            //     gbc.gridx = y;
+            //     for (int x = 0; x < 8; x++) {
+            //         gbc.gridx = x;
+            //         Color color = Color.getHSBColor(7, 51, 59);
+            //         level_.getBlocks().get(level_.BlockIndexAt(x, y)).setColor(ColorType.PURPLE);
                     
-                    // displaying each block according to color
-                    if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.RED){
-                        color = Color.RED;
-                    }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.YELLOW){
-                        color = Color.YELLOW;
-                    }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.BLUE){
-                        color = Color.BLUE;
-                    }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.GRAY_OBS){
-                        color = Color.GRAY;
-                    }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.WHITE_NEUTRAL){
-                        color = Color.WHITE;
-                    }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.GREEN){
-                        color = Color.GREEN;
-                    }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.ORANGE){
-                        color = Color.ORANGE;
-                    }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.PURPLE){
-                        color = Color.getHSBColor(7, 51, 51); // don't know if this works
-                    }
+            //         // displaying each block according to color
+            //         if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.RED){
+            //             color = Color.RED;
+            //         }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.YELLOW){
+            //             color = Color.YELLOW;
+            //         }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.BLUE){
+            //             color = Color.BLUE;
+            //         }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.GRAY_OBS){
+            //             color = Color.GRAY;
+            //         }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.WHITE_NEUTRAL){
+            //             color = Color.WHITE;
+            //         }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.GREEN){
+            //             color = Color.GREEN;
+            //         }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.ORANGE){
+            //             color = Color.ORANGE;
+            //         }else if(level_.getBlocks().get(level_.BlockIndexAt(x, y)).getColor()==ColorType.PURPLE){
+            //             color = Color.getHSBColor(7, 51, 51); // don't know if this works
+            //         }
                     
-                    add(makePanel(color), gbc);
-                }
-            }
+            //         add(makePanel(color), gbc);
+            //     }
+            // }
 
         }
 
         public BoardGrid(LevelBoard level) {
 
             level_ = level;
+
+            System.out.println("skdhfjlkashfan");
             setBackground(Color.BLACK);
             setLayout(new GridBagLayout());
 

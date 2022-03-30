@@ -11,6 +11,7 @@ import javax.swing.*;
 // import javax.swing.JComponent;
 
 import src.GameLogic.ColorType;
+import src.GameLogic.Direction;
 // import src.GameLogic.Block;
 // import src.GameLogic.ColorType;
 import src.GameLogic.LevelBoard;
@@ -25,6 +26,9 @@ public class GameBoard extends JFrame implements ActionListener{
    private JButton down_button;
    private JButton left_button;
    private JButton right_button;
+
+   private JLabel title;
+   private JLabel score;
  
 
    private BoardGrid grid;
@@ -50,30 +54,45 @@ public class GameBoard extends JFrame implements ActionListener{
         // GridBoard
         grid = new BoardGrid(level);
 
+        
         // buttons
+        int move_btn_y = 200;
+        int move_btn_x = 20;
         up_button = new JButton("^");
-        up_button.setBackground(Color.DARK_GRAY);
-
+        up_button.setBounds(50 + move_btn_x, 10 + move_btn_y, 30, 30);
        down_button = new JButton("v");
-       down_button.setBackground(Color.DARK_GRAY);
-
+       down_button.setBounds(50+ move_btn_x, 90+ move_btn_y, 30, 30);
        left_button = new JButton("<");
-       left_button.setBackground(Color.DARK_GRAY);
-
+       left_button.setBounds(10+ move_btn_x, 50+ move_btn_y, 30, 30);
        right_button = new JButton(">");
-       right_button.setBackground(Color.DARK_GRAY);
+       right_button.setBounds(90+ move_btn_x, 50+ move_btn_y, 30, 30);
+       
 
-       // label for level
-    //    level_label = new JLabel("Level : 0");
+
+      //labels
+      title = new JLabel("Color Logic Game");
+      title.setBounds(250,100, 500, 50);
+      title.setFont(new Font("Book Antiqua", Font.PLAIN, 40));
+      title.setForeground(Color.LIGHT_GRAY);
+
+      score = new JLabel("Score: 0");
+      score.setBounds(600,2, 150, 50);
+      score.setFont(new Font("Book Antiqua", Font.PLAIN, 20));
+      score.setForeground(Color.LIGHT_GRAY);
+      
 
        // location of all buttons
-       c.add(BorderLayout.PAGE_START, up_button);
-       c.add(BorderLayout.SOUTH, down_button);
-       c.add(BorderLayout.WEST, left_button);
-       c.add(BorderLayout.EAST, right_button);
+       c.setLayout(null);
+       c.add( up_button);
+       c.add( down_button);
+       c.add( left_button);
+       c.add( right_button);
+       grid.setBounds(200, 200, 1000, 1000);
+       c.add(title);
+       c.add(score);
 
-       c.add(BorderLayout.CENTER, grid);
-    //    c.add(BorderLayout.CENTER, level_label);
+       c.add( grid);
+
  
        // button onclick
        up_button.addActionListener(this);
@@ -94,24 +113,33 @@ public class GameBoard extends JFrame implements ActionListener{
        if(e.getActionCommand().equals("^")){
  
            System.out.println("up");
-           currentBoard.getBlocks().get(0).setColor(ColorType.PURPLE);
-           grid.DrawBoardGrid();
+           currentBoard.getBlocks().get(4).setColor(ColorType.ORANGE);
+           currentBoard.push(0, Direction.UP);
+           repaint();
            
  
        }else if(e.getActionCommand().equals("v")){
  
            System.out.println("down");
-           grid.DrawBoardGrid();
+           currentBoard.getBlocks().get(4).setColor(ColorType.PURPLE);
+           currentBoard.push(0, Direction.DOWN);
+           repaint();
+          
  
        }else if(e.getActionCommand().equals("<")){
  
            System.out.println("left");
-           grid.DrawBoardGrid();
+           currentBoard.getBlocks().get(4).setColor(ColorType.GREEN);
+           currentBoard.push(0, Direction.LEFT);
+           repaint();
+           
  
        }else if(e.getActionCommand().equals(">")){
  
            System.out.println("right");
-           grid.DrawBoardGrid();
+           currentBoard.getBlocks().get(4).setColor(ColorType.GRAY_OBS);
+           repaint();
+
  
        }
       
