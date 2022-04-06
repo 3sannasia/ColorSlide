@@ -13,10 +13,16 @@ public class ScreenState {
     private int width = 800;
     private int height = 800;
 
+    /**
+     * Returns current level int
+     */
     public int getCurrentLevel() {
         return currentLevel;
     }
-    // resets JFrame screen after button pressed on Menu screen
+
+    /**
+     * Resets JFrame screen after button pressed on Menu screen
+     */
     public ScreenState(JFrame frame, int width_, int height_) {
         width = width_;
         height = height_;
@@ -29,7 +35,9 @@ public class ScreenState {
         board.setVisible(true);
     }
 
-    // Adds board and level components to screen
+    /**
+     * Adds board and level components to screen
+     */
     public void startGame(JFrame frame) {
         frame.dispose();
         
@@ -51,7 +59,9 @@ public class ScreenState {
         }
     }
 
-    // Loads the next level's level board and level components to screen
+    /**
+     * Loads the next level's level board and level components to screen
+     */
     public void nextLevel(JFrame frame) {
         frame.dispose();
         LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100); // Replace with previous level .txt
@@ -63,7 +73,9 @@ public class ScreenState {
 
     }
     
-    // Adds previous level board and level components to screen
+    /**
+     * Adds previous level board and level components to screen
+     */
     public void previousLevel(JFrame frame) {
         frame.dispose();
 
@@ -89,7 +101,9 @@ public class ScreenState {
         }
     }
 
-    // Creates the instruction screen components
+    /**
+     * Creates the instruction screen components
+     */
     public void displayInstructions(JFrame frame){
         frame.dispose();
         frame.setResizable(false);

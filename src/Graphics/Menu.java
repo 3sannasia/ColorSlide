@@ -68,6 +68,9 @@ public class Menu extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
+    /**
+     * Constructor to load the menu screen
+     */
     public Menu(int width_, int height_) {
 
         // Initializes private variables
@@ -107,22 +110,30 @@ public class Menu extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
-    // Returns true current screen is on game board screen
+    /**
+     * Returns true current screen is on game board screen
+     */
     public boolean getGameStarted() {
         return gameStarted;
     }
 
-    // Returns true current screen is on Instruction Screen
+    /**
+     * Returns true current screen is on Instruction screen
+     */
     public boolean getInstructionsPressed() {
         return instructionScreen;
     }
 
-    // Returns true current screen is on game board screen
+    /**
+     * Returns true current screen is on previous level
+     */
     public boolean getPreviousLevelPressed() {
         return prevLevel;
     }
 
-    // Resets Current Screen State Position
+    /**
+     * Resets the game screen status 
+     */
     public void resetScreenBool() {
         gameStarted = false;
         prevLevel = false;
@@ -148,7 +159,9 @@ public class Menu extends JFrame implements ActionListener {
         instructions.displayInstructions(new JFrame("Instructions"));
     }
 
-    // Controls drop down menu buttons 
+    /**
+     * Controls the drop down menu
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == play){
