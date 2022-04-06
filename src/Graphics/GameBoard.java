@@ -113,7 +113,8 @@ public class GameBoard extends JFrame implements ActionListener{
        if(e.getActionCommand().equals("^")){
  
            System.out.println("up");
-           currentBoard.getBlocks().get(4).setColor(ColorType.ORANGE);
+        //    currentBoard.getBlocks().get(4).setColor(ColorType.ORANGE);
+            currentBoard.setSpeed(1);
            currentBoard.push(0, Direction.UP);
            repaint();
            
@@ -121,7 +122,7 @@ public class GameBoard extends JFrame implements ActionListener{
        }else if(e.getActionCommand().equals("v")){
  
            System.out.println("down");
-           currentBoard.getBlocks().get(4).setColor(ColorType.PURPLE);
+        //    currentBoard.getBlocks().get(4).setColor(ColorType.PURPLE);
            currentBoard.push(0, Direction.DOWN);
            repaint();
           
@@ -129,7 +130,7 @@ public class GameBoard extends JFrame implements ActionListener{
        }else if(e.getActionCommand().equals("<")){
  
            System.out.println("left");
-           currentBoard.getBlocks().get(4).setColor(ColorType.GREEN);
+        //    currentBoard.getBlocks().get(4).setColor(ColorType.GREEN);
            currentBoard.push(0, Direction.LEFT);
            repaint();
            
@@ -137,7 +138,7 @@ public class GameBoard extends JFrame implements ActionListener{
        }else if(e.getActionCommand().equals(">")){
  
            System.out.println("right");
-           currentBoard.getBlocks().get(4).setColor(ColorType.GRAY_OBS);
+        //    currentBoard.getBlocks().get(4).setColor(ColorType.GRAY_OBS);
            repaint();
 
  
