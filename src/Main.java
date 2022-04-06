@@ -17,38 +17,38 @@ public class Main {
                 final int HEIGHT = 800;
 
 
+
+                // LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 50, 50);
+                // GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
+                // frame.setSize(WIDTH, HEIGHT);
+                // frame.setResizable(false);
+                // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                // frame.setVisible(true);
                 
-                LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 50, 50);
-                GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
-                frame.setSize(WIDTH, HEIGHT);
-                frame.setResizable(false);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setVisible(true);
                 
-                
-                // Menu menu = new Menu(WIDTH, HEIGHT);
+                Menu menu = new Menu(WIDTH, HEIGHT);
 
-                // // Now the menu controls the screens when buttons are pressed (calls ScreenState.java)
+                // Now the menu controls the screens when buttons are pressed (calls ScreenState.java)
 
 
-                // if (menu.getGameStarted()) {
-                //     LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 50, 50);
-                //     GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
-                //     frame.setSize(WIDTH, HEIGHT);
-                //     frame.setResizable(false);
-                //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                //     frame.setVisible(true);
+                if (menu.getGameStarted()) {
+                    LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 50, 50);
+                    GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
+                    frame.setSize(WIDTH, HEIGHT);
+                    frame.setResizable(false);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setVisible(true);
 
-                // } else if (menu.getPreviousLevelPressed()) {
-                //     LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 50,50); // Replace with previous level .txt
-                //     GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
-                //     frame.setSize(WIDTH, HEIGHT);
-                //     frame.setResizable(false);
-                //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                //     frame.setVisible(true);
-                // } else if (menu.getInstructionsPressed()) {
-                //     Instructions instructionScreen = new Instructions(WIDTH, HEIGHT);
-                // }
+                } else if (menu.getPreviousLevelPressed()) {
+                    LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 50,50); // Replace with previous level .txt
+                    GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
+                    frame.setSize(WIDTH, HEIGHT);
+                    frame.setResizable(false);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setVisible(true);
+                } else if (menu.getInstructionsPressed()) {
+                    Instructions instructionScreen = new Instructions(WIDTH, HEIGHT);
+                }
                 
                 
 
