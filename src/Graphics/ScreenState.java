@@ -27,12 +27,12 @@ public class ScreenState {
         board.setResizable(false);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board.setVisible(true);
-
     }
 
     // Adds board and level components to screen
     public void startGame(JFrame frame) {
         frame.dispose();
+        
         // Graphics2D g2d = (Graphics2D) g;
         // Creates and shows the Game Board
         LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100);
@@ -44,8 +44,25 @@ public class ScreenState {
       
         // Updates current level
         currentLevel++;;
+
+        //Loading next level if won
+        if (level.isComplete()){
+            nextLevel(frame);
+        }
     }
 
+    // Loads the next level's level board and level components to screen
+    public void nextLevel(JFrame frame) {
+        frame.dispose();
+        LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100); // Replace with previous level .txt
+        GameBoard board = new GameBoard(width, height, level);
+        board.setSize(width, height);
+        board.setResizable(false);
+        board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        board.setVisible(true);
+
+    }
+    
     // Adds previous level board and level components to screen
     public void previousLevel(JFrame frame) {
         frame.dispose();
@@ -61,6 +78,8 @@ public class ScreenState {
             board.setResizable(false);
             board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             board.setVisible(true);
+            
+            
         } else {
 
             // Pop-up error message for the user
@@ -74,6 +93,8 @@ public class ScreenState {
     public void displayInstructions(JFrame frame){
         frame.dispose();
         frame.setResizable(false);
+        
+        // Creates and instantiates the instruction screen
         Instructions instructions = new Instructions();
     }
 }
