@@ -12,6 +12,7 @@ public class LevelBoard {
 
     private int width;
     private int height;
+    private int moves;
 
     private final int SCALE;
 
@@ -22,6 +23,9 @@ public class LevelBoard {
     // Speed at which blocks move: must be a divisor of SCALE: default to SCALE
     private int speed;
 
+    // Maximum number of moves allowed to complete the level
+    private int allowedMoves=20; //TODO Change this to a constant final int
+
     //-------- Construction Functions --------//
 
     public LevelBoard(int widthSet, int heightSet, int scale) {
@@ -30,6 +34,7 @@ public class LevelBoard {
         height = heightSet;
 
         blocks = new ArrayList<Block>();
+        moves = 0;
 
         SCALE = scale;
         speed = SCALE;
@@ -37,6 +42,7 @@ public class LevelBoard {
 
     public LevelBoard(String fileName, int scale, int speed){
         this(fileName, scale);
+        moves = 0;
         setSpeed(speed);
     }
 
@@ -46,6 +52,7 @@ public class LevelBoard {
         // Set Scale
         SCALE = scale;
         speed = SCALE;
+        moves = 0;
         System.out.println("Loading level from textfile " + fileName + "...");
 
         // Attempt file reading
@@ -94,6 +101,7 @@ public class LevelBoard {
         height = Integer.parseInt(params[1]) * SCALE;
 
         blocks = new ArrayList<Block>();
+        moves = 0;
 
         for(int rowNum = 0; rowNum < height / SCALE; rowNum++){
 
@@ -176,7 +184,7 @@ public class LevelBoard {
 
     // Basic information printer for Console
     public String getLevelInfo() {
-        String info = "Scaled Dimenions: " + height + ", " + width + "\n";
+        String info = "Scaled Dimensions: " + height + ", " + width + "\nMaximum number of moves: " + allowedMoves + "\n";
         for(Block block : blocks){
             info += "  " + block.getBlockInfo() + "\n";
         }
@@ -260,6 +268,19 @@ public class LevelBoard {
         return speed;
     }
 
+    public int getAllowedMoves() {
+        return allowedMoves;
+    }
+
+    public int getMoves() {
+        return moves;
+    }
+
+    //TODO Temporary function until max moves possible for each level is determined
+    public void setAllowedMoves(int allowedMoves) {
+        this.allowedMoves = allowedMoves;
+    }
+
     // Useful for detecting if we can move blocks
     public boolean isMoving() {
         for(Block block : blocks){
@@ -298,6 +319,7 @@ public class LevelBoard {
                     if(block.isCollidingWith(potentialCollidor) && i != j){
 
                         ColorType mergeResult = colorMix(block.getColor(), potentialCollidor.getColor());
+                        moves++; //Move is complete, so increment moves
                         if(mergeResult != ColorType.WHITE_NEUTRAL){
 
                             // Merge colors if needed, delete block
@@ -334,8 +356,11 @@ public class LevelBoard {
         return false;
     }
 
-    // Check if the goal is satisfied
+    // Check if the goal is satisfied and moves is within the allowed number
     public boolean isComplete(){
+
+        if(moves > allowedMoves) return false;
+
         for(Block block : blocks){
             if(goal.Satisfied(block)){
                 return true;
