@@ -379,6 +379,38 @@ public class BackendTest {
         System.out.println("    Test Complete (Default PASSED): testPushTwoBlocks.\n");
     }
 
+    @Test
+    public void testResetLevel() {
+
+        // Push the White block
+        int block = playground1.BlockIndexAt(450, 350);
+        playground1.push(block, Direction.UP);
+        playground1.update(5);
+
+        // Reset the level
+        playground1.reset();
+
+        String[] recieved = playground1.getBoardGrid().split("\n");
+
+        String expectedLevel = 
+            "X X X X X X X X X X \n" + 
+            "X r . . B Y . B Y X \n" + 
+            "X . X . . . . . . X \n" + 
+            "X . X . W W . R R X \n" + 
+            "X . X . W W . X X X \n" + 
+            "X . X . . . . X X X \n" + 
+            "X . X . G . Y . . X \n" + 
+            "X . . O . P . . . X \n" + 
+            "X R . . . . . . . X \n" + 
+            "X X X X X X X X X X ";
+        String[] expected = expectedLevel.split("\n");
+        
+        for(int i = 0; i < expected.length; i++){
+            assertEquals(recieved[i], expected[i]);
+        }
+        System.out.println("    Test Complete (Default PASSED): testBasicBlockPushUp.\n");
+    }
+
     //-------- Color Merging Tests --------//
 
     @Test
@@ -490,11 +522,38 @@ public class BackendTest {
             "X R . . . . . . . X \n" + 
             "X X X X X X X X X X ";
         String[] expected = expectedLevel.split("\n");
-        
         for(int i = 0; i < expected.length; i++){
             assertEquals(recieved[i], expected[i]);
         }
         System.out.println("    Test Complete (Default PASSED): noMergeNeutral.\n");
+    }
+
+    @Test
+    public void doubleMerge() {
+
+        // Try to merge with two at once
+        int block = playground1.BlockIndexAt(750, 350);
+        playground1.push(block, Direction.UP);
+        playground1.update(5);
+
+        String[] recieved = playground1.getBoardGrid().split("\n");
+
+        String expectedLevel = 
+            "X X X X X X X X X X \n" + 
+            "X r . . B Y . P O X \n" + 
+            "X . X . . . . . . X \n" + 
+            "X . X . W W . . . X \n" + 
+            "X . X . W W . X X X \n" + 
+            "X . X . . . . X X X \n" + 
+            "X . X . G . Y . . X \n" + 
+            "X . . O . P . . . X \n" + 
+            "X R . . . . . . . X \n" + 
+            "X X X X X X X X X X ";
+        String[] expected = expectedLevel.split("\n");        
+        for(int i = 0; i < expected.length; i++){
+            assertEquals(recieved[i], expected[i]);
+        }
+        System.out.println("    Test Complete (Default PASSED): doubleMerge.\n");
     }
 
     @Test
@@ -557,6 +616,8 @@ public class BackendTest {
         }
         System.out.println("    Test Complete (Default PASSED): noMergeSecSec.\n");
     }
+
+    //-------- Goal Tests --------//
 
     @Test
     public void goalPartial() {

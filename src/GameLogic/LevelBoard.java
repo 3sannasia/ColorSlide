@@ -1,10 +1,8 @@
 package src.GameLogic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
@@ -22,8 +20,16 @@ public class LevelBoard {
     // Speed at which blocks move: must be a divisor of SCALE: default to SCALE
     private int speed;
 
+    // Unparsed starting level obstacle data for reset(), populates during valid level construction
+    private String backup;
+
+
     //-------- Construction Functions --------//
 
+    // Construct an empty level.
+    // @param widthSet: the width of the level, in block unit lengths
+    // @param heightSet: the height of the level, in block unit lengths
+    // @param scale: the block unit length
     public LevelBoard(int widthSet, int heightSet, int scale) {
 
         width = widthSet;
@@ -33,19 +39,27 @@ public class LevelBoard {
 
         SCALE = scale;
         speed = SCALE;
+        backup = "";
     }
 
+    // Construct a level from a text file.
+    // @param fileName: the file name of the text file to read from (see sample LevelTest)
+    // @param scale: the block unit length
+    // @param speed: the speed at which blocks move across a board
     public LevelBoard(String fileName, int scale, int speed){
         this(fileName, scale);
         setSpeed(speed);
     }
 
-    // Build a level from a textfile, with an explicitly defined scale
+    // Construct a level from a text file.
+    // @param fileName: the file name of the text file to read from (see sample LevelTest)
+    // @param scale: the block unit length
     public LevelBoard(String fileName, int scale) {
 
         // Set Scale
         SCALE = scale;
         speed = SCALE;
+        backup = "";
         System.out.println("Loading level from textfile " + fileName + "...");
 
         // Attempt file reading
@@ -80,7 +94,9 @@ public class LevelBoard {
         }
     }
 
-    // Build a level from a string, formatted in the same way as a textfile, with a scale specified in the text
+    // Construct a level from a string in the same way as a textfile, 
+    // with a scale specified in the text
+    // @param text: the text data to parse
     public LevelBoard(String text){
 
         String[] lines = text.split("\n");
@@ -89,6 +105,7 @@ public class LevelBoard {
         String[] params = lines[0].split(" ");
         SCALE = Integer.parseInt(params[2]);
         speed = SCALE;
+        backup = "";
 
         width = Integer.parseInt(params[0]) * SCALE;
         height = Integer.parseInt(params[1]) * SCALE;
@@ -104,7 +121,12 @@ public class LevelBoard {
     }
 
     // Helper for parsing a string row
+    // @param nextline: the text data to parse
+    // @param rowNum: the level row number to parse to
     public void readInRow(String nextline, int rowNum){
+
+        // Add to backup
+        backup = backup + nextline + "\n";
 
         // Set up character mapping
         Map<String, ColorType> charMap = new HashMap<>(){{
@@ -159,22 +181,27 @@ public class LevelBoard {
     }
 
     // Helper to add block
+    // @param block: the block to add to the level data
     public void addBlock(Block block){
         blocks.add(block);
     }
 
     // Helper to set goal
+    // @param goal: the goal to add to the level data
     public void setGoal(Goal goalSet){
         goal = goalSet;
     }
 
     //-------- Critical Getters for GUI --------//
 
+    // Helper to get blocks
+    // @return: the arraylist of block data
     public ArrayList<Block> getBlocks() {
         return blocks;
     }
 
     // Basic information printer for Console
+    // @return: a string enumerating a list of blocks
     public String getLevelInfo() {
         String info = "Scaled Dimenions: " + height + ", " + width + "\n";
         for(Block block : blocks){
@@ -183,7 +210,8 @@ public class LevelBoard {
         return info;
     }
 
-    // Printing the board as a grid for testing and visualization
+    // Helper for printing the board as a grid for testing and visualization
+    // @return: a string enumerating the entire level layout as a grid
     public String getBoardGrid(){
 
         // Set up character mapping
@@ -261,6 +289,7 @@ public class LevelBoard {
     }
 
     // Useful for detecting if we can move blocks
+    // @return: whether any block on the board is moving
     public boolean isMoving() {
         for(Block block : blocks){
             if(block.isMoving()){
@@ -271,6 +300,7 @@ public class LevelBoard {
     }
 
     // What block currently covers point (x, y)? (Inclusive)
+    // @return: the block arraylist index corresponding to the block at pixel dimensions (x, y)
     public int BlockIndexAt(int x, int y){
         for(int i = 0; i < blocks.size(); i++){
             if((blocks.get(i)).containsCoordsInclusive(x, y)){
@@ -291,31 +321,59 @@ public class LevelBoard {
                 // Update block
                 block.update();
 
+                // Check for collisions
+                ArrayList<Block> collisions = new ArrayList<Block>();
+
                 for(int j = 0; j < blocks.size(); j++){
                     Block potentialCollidor = blocks.get(j);
-                    
-                    // Check for collisions
+
+                    // Check for collisions and add to list
                     if(block.isCollidingWith(potentialCollidor) && i != j){
+                        collisions.add(potentialCollidor);
+                    }
+                }
 
-                        ColorType mergeResult = colorMix(block.getColor(), potentialCollidor.getColor());
-                        if(mergeResult != ColorType.WHITE_NEUTRAL){
-
-                            // Merge colors if needed, delete block
-                            potentialCollidor.setColor(mergeResult);
-                            blocks.remove(i);
-                        }else{
-
-                            // Else, stop the block, move back one, and recenter
+                // Process collisions, if any
+                if(!collisions.isEmpty()){
+                    // If any collision is a stopping block, return
+                    for(int j = 0; j < collisions.size(); j++){
+                        Block potentialCollidor = collisions.get(j);
+                        ColorType collidorColor = potentialCollidor.getColor();
+                        if(collidorColor == ColorType.WHITE_NEUTRAL || collidorColor == ColorType.GRAY_OBS){
+                            
+                            // Stop the block, move back one, and recenter
                             block.backPedal();
                             block.stop();
                             block.recenter(SCALE);
                         }
+                    }
+
+                    // Else, merge with each block and remove initial
+                    boolean merged = false;
+                    for(int j = 0; j < collisions.size(); j++){
+                        Block potentialCollidor = collisions.get(j);
+                        ColorType mergeResult = colorMix(block.getColor(), potentialCollidor.getColor());
+                        if(mergeResult != ColorType.WHITE_NEUTRAL){
+                            potentialCollidor.setColor(mergeResult);
+                            merged = true;
+                        }
+                    }
+
+                    // Delete block
+                    if(merged){
+                        blocks.remove(i);
+                    }else{
+                        // Stop the block, move back one, and recenter
+                        block.backPedal();
+                        block.stop();
+                        block.recenter(SCALE);                        
                     }
                 }
             }
         }
     }
 
+    // Update a specific number of frames
     public void update(int numFrames){
         for(int i = 0; i < numFrames; i++){
             update();
@@ -323,6 +381,7 @@ public class LevelBoard {
     }
 
     // Attempt to push a block of given index (returns if successful)
+    // @return: whether the push was successful, or if attempt was cancelled
     public boolean push(int blockIndex, Direction dir){
         if(!isMoving()){
             if(blocks.get(blockIndex).getColor() == ColorType.GRAY_OBS){
@@ -335,6 +394,7 @@ public class LevelBoard {
     }
 
     // Check if the goal is satisfied
+    // @return: whether the goal is complete
     public boolean isComplete(){
         for(Block block : blocks){
             if(goal.Satisfied(block)){
@@ -344,7 +404,8 @@ public class LevelBoard {
         return false;
     }
 
-    // Change speed: true if successful
+    // Change speed: true if successful; speed must be a divisor of SCALE
+    // @return: true is successful
     public boolean setSpeed(int speedSet){
         if(SCALE % speedSet == 0){
             speed = speedSet;
@@ -353,9 +414,30 @@ public class LevelBoard {
         return false;
     }
 
+    // Completely reset a level's block data
+    public void reset(){
+
+        // Empty the obstacle information
+        blocks.clear();
+
+        String[] lines = backup.split("\n");
+
+        // Repopulate
+        backup = "";
+        for(int rowNum = 0; rowNum < height / SCALE; rowNum++){
+
+            // Read in board blocks
+            String nextline = lines[rowNum];
+            readInRow(nextline, rowNum);
+        }
+    }
+
     //-------- Color Mixing --------//
 
     // Return the corect color by mixing two primaries, else White as default
+    // @param color1: A color enumeration input
+    // @param color2: A color enumeration input
+    // @return: The mix of colors, or ColorType.WHITE if no mix
     public static ColorType colorMix(ColorType color1, ColorType color2){
 
         // Refer to the color hash values
