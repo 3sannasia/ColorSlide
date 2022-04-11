@@ -37,6 +37,7 @@ public class Instructions extends JFrame {
         // Load Instructions frame
     }
     public Instructions(int width, int height) {
+
         frame = new JFrame("Instructions");
         panel = new JPanel();
 

@@ -160,7 +160,7 @@ public class ScreenState {
     public void displayInstructions(JFrame frame){
         frame.dispose();
         frame.setResizable(false);
-        
+    
         // Creates and instantiates the instruction screen
         Instructions instructions = new Instructions();
     }

@@ -1,13 +1,20 @@
 package src.Graphics;
 // import src.GameLogic.*;
-import javax.swing.JFrame;
-
-
 import javax.swing.*;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Image;
+import javax.imageio.ImageIO;
+
+
 
 /**
  * Starting screen
@@ -25,6 +32,10 @@ public class Menu extends JFrame implements ActionListener {
     static JMenuItem instructions;
     static JMenuItem previousLevel;
     static JMenuItem quit;
+    
+    static JPanel panel;
+    
+    static JLabel label;
 
     static JMenuBar menu_bar;
     static JFrame frame;
@@ -34,6 +45,7 @@ public class Menu extends JFrame implements ActionListener {
 
     private int height = 800;
     private int width = 800;
+
     public Menu() {
         // Setting up the window and the menu drop down
         frame = new JFrame("Menu");
@@ -45,7 +57,11 @@ public class Menu extends JFrame implements ActionListener {
         previousLevel = new JMenuItem("Previous Level");
         quit = new JMenuItem("Quit");
 
-        //Coloring Drop Down Menu for appealingaesthetics
+        // Adding a gif animation in the title screen
+        label = new JLabel("block-sliding.gif");
+        frame.add(label, BorderLayout.CENTER);
+
+        //Coloring Drop Down Menu for appealing aesthetics
         play.setBackground(Color.GREEN);
         instructions.setForeground(Color.BLACK);
         previousLevel.setForeground(Color.BLACK);
@@ -57,6 +73,12 @@ public class Menu extends JFrame implements ActionListener {
         menu.add(instructions);
         menu.add(previousLevel);
         menu.add(quit);
+
+        // Color Pane
+        panel = new JPanel();
+        panel.setBackground(Color.orange);
+        frame.add(panel, BorderLayout.CENTER);
+
 
         play.addActionListener(this);
         instructions.addActionListener(this);
@@ -70,8 +92,9 @@ public class Menu extends JFrame implements ActionListener {
 
     /**
      * Constructor to load the menu screen
+     * @throws IOException
      */
-    public Menu(int width_, int height_) {
+    public Menu(int width_, int height_) throws IOException {
 
         // Initializes private variables
         width = width_;
@@ -86,6 +109,28 @@ public class Menu extends JFrame implements ActionListener {
         instructions = new JMenuItem("Instructions");
         previousLevel = new JMenuItem("Previous Level");
         quit = new JMenuItem("Quit");
+
+        // Color Pane
+        panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+
+
+        // Block sliding gif
+        // Adding resized gif image to the menu screen
+        Image image = null;
+        try {
+            image = ImageIO.read(new File("course-project-vf-a/src/Graphics/block-sliding.gif"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+      
+        Image gif = getScaledImage(image, 800, 800);
+        ImageIcon icon = new ImageIcon(gif);
+        JLabel label = new JLabel(icon);
+
+        panel.add(label);
+        frame.add(panel, BorderLayout.CENTER);
 
         //Coloring Drop Down Menu for appealingaesthetics
         play.setBackground(Color.GREEN);
@@ -108,6 +153,20 @@ public class Menu extends JFrame implements ActionListener {
         frame.setJMenuBar(menu_bar);
         frame.setSize(width, height);
         frame.setVisible(true);
+    }
+
+    /**
+     * Returns resized image for the menu screen gif
+     */
+    public Image getScaledImage(Image srcImg, int w, int h){
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = resizedImg.createGraphics();
+    
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(srcImg, 0, 0, w, h, null);
+        g2.dispose();
+    
+        return resizedImg;
     }
 
     /**
@@ -143,7 +202,7 @@ public class Menu extends JFrame implements ActionListener {
     //-------- Loads board when start pressed --------//
     public void StartGame() {
         ScreenState start = new ScreenState(frame, width, height);
-        // start.startGame(new JFrame("Level " + start.getCurrentLevel()));
+        start.startGame(new JFrame("Level " + start.getCurrentLevel()));
         
     }
 
