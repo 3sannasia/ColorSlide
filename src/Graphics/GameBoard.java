@@ -63,9 +63,6 @@ public class GameBoard extends JFrame implements ActionListener{
         grid.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent arg0) {
-              System.out.println("frame pressed");
-              System.out.println("dialog focused ");
-              System.out.println("frame focused " + arg0.getX() + " i love nunu " + arg0.getY());
               block_idx = level.BlockIndexAt(arg0.getX(), arg0.getY());
               super.mousePressed(arg0);
             }
