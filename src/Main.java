@@ -5,7 +5,7 @@ import javax.swing.SwingUtilities;
 
 import src.Graphics.*;
 
-// import src.GameLogic.Direction;
+import src.GameLogic.Direction;
 import src.GameLogic.LevelBoard;
 
 public class Main {
@@ -24,20 +24,18 @@ public class Main {
 
                 // Try reading in a Test Case
             
-                // Try reading in and working Test Case
-                // LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100, 100);
-                // System.out.println(level.getLevelInfo());
+                System.out.println(level.getLevelInfo());
 
-                // int indexRedBlock1 = level.BlockIndexAt(650, 150);
+                int indexRedBlock1 = level.BlockIndexAt(650, 150);
 
-                // level.push(indexRedBlock1, Direction.LEFT);
+                level.push(indexRedBlock1, Direction.LEFT);
 
-                // for(int i = 0; i < 6; i++){
-                //     level.update();
-                //     System.out.println(level.getBoardGrid());
-                //     System.out.println(level.getBlocks().get(indexRedBlock1).getBlockInfo());
-                //     System.out.println(level.isComplete());
-                // }
+                for(int i = 0; i < 6; i++){
+                    level.update();
+                    System.out.println(level.getBoardGrid());
+                    System.out.println(level.getBlocks().get(indexRedBlock1).getBlockInfo());
+                    System.out.println(level.isComplete());
+                }
             }
         });
     }
