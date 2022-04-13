@@ -26,9 +26,11 @@ public class ScreenState {
         width = width_;
         height = height_;
         frame.dispose();
-        LevelBoard level = new LevelBoard(getCurrentLevelFile(), 100);
-        GameBoard board = new GameBoard(width, height, level);
-        board.setSize(width, height);
+        
+        
+        LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 50, 50);
+        GameBoard board = new GameBoard(width_, height_, level);
+        board.setSize(width_, height_);
         board.setResizable(false);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board.setVisible(true);
@@ -42,7 +44,7 @@ public class ScreenState {
         
         // Graphics2D g2d = (Graphics2D) g;
         // Creates and shows the Game Board
-        LevelBoard level = new LevelBoard(getCurrentLevelFile(), 100); // Returns current level file
+        LevelBoard level = new LevelBoard(getCurrentLevelFile(), 50,50); // Returns current level file
         GameBoard board = new GameBoard(width, height, level);
         updateLevelFiles(currLevelFile);
 
@@ -65,7 +67,7 @@ public class ScreenState {
      */
     public void nextLevel(JFrame frame) {
         frame.dispose();
-        LevelBoard level = new LevelBoard(getNextLevelFile(), 100); // Returns current level file
+        LevelBoard level = new LevelBoard(getNextLevelFile(), 50,50); // Returns current level file
         GameBoard board = new GameBoard(width, height, level);
         updateLevelFiles(nextLevelFile);
         
@@ -87,7 +89,7 @@ public class ScreenState {
             currentLevel--;
             
             // Creates the game board for the previous level
-            LevelBoard level = new LevelBoard(getPrevLevelFile(), 100); // Replace with previous level .txt
+            LevelBoard level = new LevelBoard(getPrevLevelFile(), 50,50); // Replace with previous level .txt
             GameBoard board = new GameBoard(width, height, level);
             updateLevelFiles(prevLevelFile);
 
