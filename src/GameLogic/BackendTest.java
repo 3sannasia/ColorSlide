@@ -18,7 +18,7 @@ public class BackendTest {
 
         System.out.println("Setting up Playground 1 for Testing ...");
         playground1 = new LevelBoard(
-            "10 10 100\n" + 
+            "10 10 100 20\n" + 
             "X91 --- --- --- --- --- --- --- --- X19\n" + 
             "X19 r11 ... ... B11 Y11 ... B11 Y11 |||\n" + 
             "||| ... X15 ... ... ... ... ... ... |||\n" + 
@@ -34,7 +34,7 @@ public class BackendTest {
 
         System.out.println("Setting up Playground 2 for Testing ...");
         playground2 = new LevelBoard(
-            "10 10 100\n" + 
+            "10 10 100 20\n" + 
             "X91 --- --- --- --- --- --- --- --- X19\n" + 
             "X19 ... ... ... ... ... ... ... ... |||\n" + 
             "||| ... ... ... ... X21 --- ... ... |||\n" + 
@@ -50,7 +50,7 @@ public class BackendTest {
 
         System.out.println("Setting up Playground 3 for Testing ...");
         playground3 = new LevelBoard(
-            "10 10 100\n" + 
+            "10 10 100 20\n" + 
             "X91 --- --- --- --- --- --- --- --- X19\n" + 
             "X19 ... ... ... ... ... ... ... ... |||\n" + 
             "||| ... ... ... ... X21 --- ... ... |||\n" + 
@@ -612,6 +612,73 @@ public class BackendTest {
         assertEquals(false, playground2.isComplete());
         
         System.out.println("    Test Complete (Default PASSED): goalSatisfied2.\n");
+    }
+
+    @Test
+    public void correctMoveCount() {
+
+        int block = playground2.BlockIndexAt(150, 350);
+        //Should have counted exactly 17 moves
+        for(int i = 0; i <= 16; i++)
+        {
+            if(i%2 == 0) playground2.push(block, Direction.RIGHT);
+            else playground2.push(block, Direction.LEFT);
+            playground2.update(10);
+        }
+
+        assertEquals(17, playground2.getMoves());
+        
+        System.out.println("    Test Complete (Default PASSED): correctMoveCount.\n");
+    }
+
+    @Test
+    public void correctMoveCount2() {
+
+        int block = playground2.BlockIndexAt(150, 350);
+        //Should have counted exactly 17 moves even if in some moves the state does not change.
+        for(int i = 0; i <= 16; i++)
+        {
+            playground2.push(block, Direction.RIGHT);
+            playground2.update(10);
+        }
+
+        assertEquals(17, playground2.getMoves());
+        
+        System.out.println("    Test Complete (Default PASSED): correctMoveCount2.\n");
+    }
+
+    @Test
+    public void validMoveCount() {
+
+        int block = playground2.BlockIndexAt(150, 350);
+        //17 is within the allowed number of moves (20)
+        for(int i = 0; i <= 16; i++)
+        {
+            if(i%2 == 0) playground2.push(block, Direction.RIGHT);
+            else playground2.push(block, Direction.LEFT);
+            playground2.update(10);
+        }
+
+        assertEquals(true, playground2.isComplete());
+        
+        System.out.println("    Test Complete (Default PASSED): validMoveCount.\n");
+    }
+
+    @Test
+    public void tooManyMoves() {
+
+        int block = playground2.BlockIndexAt(150, 350);
+        //21 is more than the allowed number of moves (20)
+        for(int i = 0; i < 21; i++)
+        {
+            if(i%2 == 0) playground2.push(block, Direction.RIGHT);
+            else playground2.push(block, Direction.LEFT);
+            playground2.update(10);
+        }
+
+        assertEquals(false, playground2.isComplete());
+        
+        System.out.println("    Test Complete (Default PASSED): tooManyMoves.\n");
     }
 
 }

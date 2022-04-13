@@ -24,14 +24,15 @@ public class LevelBoard {
     private int speed;
 
     // Maximum number of moves allowed to complete the level
-    private int allowedMoves=20; //TODO Change this to a constant final int
+    private int allowedMoves;
 
     //-------- Construction Functions --------//
 
-    public LevelBoard(int widthSet, int heightSet, int scale) {
+    public LevelBoard(int widthSet, int heightSet, int scale, int allowedMovesSet) {
 
         width = widthSet;
         height = heightSet;
+        allowedMoves = allowedMovesSet;
 
         blocks = new ArrayList<Block>();
         moves = 0;
@@ -60,6 +61,10 @@ public class LevelBoard {
             
             BufferedReader lineReader = new BufferedReader(new FileReader(fileName));
             String nextline = lineReader.readLine();
+
+            allowedMoves = Integer.parseInt(lineReader.readLine());
+
+            nextline = lineReader.readLine();
 
             // Reading in width and height
             String[] params = nextline.split(" ");
@@ -96,6 +101,8 @@ public class LevelBoard {
         String[] params = lines[0].split(" ");
         SCALE = Integer.parseInt(params[2]);
         speed = SCALE;
+
+        allowedMoves = Integer.parseInt(params[3]);
 
         width = Integer.parseInt(params[0]) * SCALE;
         height = Integer.parseInt(params[1]) * SCALE;
@@ -274,11 +281,6 @@ public class LevelBoard {
 
     public int getMoves() {
         return moves;
-    }
-
-    //TODO Temporary function until max moves possible for each level is determined
-    public void setAllowedMoves(int allowedMoves) {
-        this.allowedMoves = allowedMoves;
     }
 
     // Useful for detecting if we can move blocks
