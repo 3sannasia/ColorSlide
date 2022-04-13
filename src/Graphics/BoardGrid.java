@@ -13,28 +13,26 @@ import src.GameLogic.ColorType;
 import src.GameLogic.LevelBoard;
 
 public class BoardGrid extends JPanel {
-    LevelBoard level_;
-    GridBagConstraints gbc;
 
+    LevelBoard level_;
+
+     //-------- Paint method for updating screen after move/(any chnages) --------//
     @Override
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-        System.out.println(level_.getBoardGrid());
 
+        // goes through all pixels in grid and colors them according to the code in backend for each pixel
         for (int y = 0; y < 300; y+=50) {
-
             for (int x =0 ; x < 500; x+=50) {
 
-                Color color = Color.CYAN;
-                System.out.println(x + " kjdfb " + y);
-                
-                
+                Color color = Color.BLACK;
                 // displaying each block according to color
                 int blockIndex = level_.BlockIndexAt(x+25 , y+25 );
                
                 if(blockIndex >=0){
                 ColorType blockColor = level_.getBlocks().get(blockIndex).getColor();
                 
+                // checkign for color to set in the grid
                 if(blockColor==ColorType.RED){
                     color = Color.RED;
                 }else if(blockColor==ColorType.YELLOW){
@@ -59,56 +57,13 @@ public class BoardGrid extends JPanel {
         }
 
     }
-		
-
-
-    
-    // // Maybe this for the other colored blocks to merge
-    // public void repaint(Color color) {  
-    //     Graphics g = makePanel(color).getGraphics();
-    //     g.setColor(color);
-    //     // g.drawRect(x, y, width, height);
-    //     // g.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
-
-    //     //use makepanel to return panel and use it to call repaint
-
-
-    // }
-
-    // Maybe this for goal block
-    // @Override
-	// public void paintComponent(Graphics g) {
-    //     super.paintComponent(g);
-    //     g.setColor(Color.RED);
-    //     //how to pass position
-    //     g.drawRect(0, 0, 100, 100);
-    //     g.fillRect(0, 0, 100, 100);
-        
-    //     // DISCLAIMER: Currently it draws red rectangle but below the white grid squares
-
-	// }
-
-      
-
-        public BoardGrid(LevelBoard level) {
-
-            level_ = level;
-
-            System.out.println("skdhfjlkashfan");
-            setBackground(Color.BLACK);
-  
-
-            gbc = new GridBagConstraints();
-            gbc.weightx = 0.25;
-            gbc.insets = new Insets(4, 4, 4, 4);
-            gbc.weighty = 0.16;
-            gbc.fill = GridBagConstraints.BOTH;
-  
-            
-        }
-
-        
-        ///make a single panel on grid
-
+	
+     
+   //-------- Constructor, initializing backend --------//
+    public BoardGrid(LevelBoard level) {
+        level_ = level;
+        setBackground(Color.BLACK);
     }
+
+}
 
