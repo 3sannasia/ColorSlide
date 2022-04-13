@@ -1,10 +1,14 @@
 package src.GameLogic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Random;
+
+import org.junit.rules.TestRule;
 
 public class LevelBoard {
 
@@ -37,15 +41,15 @@ public class LevelBoard {
     // @param allowedMovesSet: number of moves allowed
     public LevelBoard(int widthSet, int heightSet, int scale, int allowedMovesSet) {
 
-        width = widthSet;
-        height = heightSet;
+        SCALE = scale;
+        speed = SCALE;
+
+        width = widthSet * SCALE;
+        height = heightSet * SCALE;
         allowedMoves = allowedMovesSet;
 
         blocks = new ArrayList<Block>();
         moves = 0;
-
-        SCALE = scale;
-        speed = SCALE;
         backup = "";
     }
 
@@ -78,7 +82,7 @@ public class LevelBoard {
             BufferedReader lineReader = new BufferedReader(new FileReader(fileName));
             String nextline = lineReader.readLine();
 
-            allowedMoves = Integer.parseInt(lineReader.readLine());
+            allowedMoves = Integer.parseInt(nextline);
 
             nextline = lineReader.readLine();
 
@@ -195,6 +199,147 @@ public class LevelBoard {
                 ));
             }
         }
+    }
+
+    // Construct a random level.
+    // @param fileName: the file name of the text file to read from (see sample LevelTest)
+    // @param scale: the block unit length
+    // @param speed: the speed at which blocks move across a board
+    public LevelBoard(int randomness, int complexity, int scale, int allowedMoves, int extra){
+        this(randomness, randomness, scale, allowedMoves);
+
+        // Add walls
+        addBlock(new Block(ColorType.GRAY_OBS,
+            0 * SCALE,
+            0 * SCALE,
+            1 * SCALE,
+            randomness * SCALE
+        ));
+
+        addBlock(new Block(ColorType.GRAY_OBS,
+            1 * SCALE,
+            0 * SCALE,
+            (randomness - 1) * SCALE,
+            1 * SCALE
+        ));  
+
+        addBlock(new Block(ColorType.GRAY_OBS,
+            (randomness - 1) * SCALE,
+            1 * SCALE,
+            1 * SCALE,
+            (randomness - 2) * SCALE
+        )); 
+
+        addBlock(new Block(ColorType.GRAY_OBS,
+            1 * SCALE,
+            (randomness - 1) * SCALE,
+            (randomness - 1) * SCALE,
+            1 * SCALE
+        )); 
+
+        // Add random blocks
+        Random rand = new Random();
+
+        ArrayList<ColorType> colorList = new ArrayList<>(
+            Arrays.asList(
+                ColorType.GRAY_OBS,
+                ColorType.WHITE_NEUTRAL,
+                ColorType.RED,
+                ColorType.ORANGE,
+                ColorType.YELLOW,
+                ColorType.GREEN,
+                ColorType.BLUE,
+                ColorType.PURPLE)
+        );
+
+        for(int i = 0; i < randomness * complexity; i++){
+            int width = (rand.nextInt(randomness / 3) + 1);
+            width = Math.min(width, rand.nextInt(randomness / 3) + 1);
+            int height = (rand.nextInt(randomness / 3) + 1);
+            height = Math.min(height, rand.nextInt(randomness / 3) + 1);
+            int x = (rand.nextInt(randomness - width));
+            int y = (rand.nextInt(randomness - height));
+
+            
+            Block block = new Block(colorList.get(rand.nextInt(colorList.size())),
+                x * SCALE,
+                y * SCALE,    
+                width * SCALE,
+                height * SCALE
+            );
+            
+            // Check for collisions with others, add if none
+            boolean collision = false;
+            for(int j = 0; j < blocks.size(); j++){
+                Block potentialCollidor = blocks.get(j);
+                
+                // Check for collisions
+                if(block.isCollidingWith(potentialCollidor)){
+                    collision = true;
+                    break;
+                }
+            }
+            if(!collision){
+                addBlock(block); 
+            }
+        }
+
+        // save blocks
+        ArrayList<Block> blocksSave = new ArrayList<>();
+        for(int j = 0; j < blocks.size(); j++){
+            Block block = blocks.get(j);
+            blocksSave.add(new Block(
+                block.getColor(),
+                block.getX(),
+                block.getY(),
+                block.getWidth(),
+                block.getHeight()
+            ));
+        }
+
+        // Start moving things around
+
+        ArrayList<Direction> directionList = new ArrayList<>(
+            Arrays.asList(
+                Direction.UP,
+                Direction.DOWN,
+                Direction.RIGHT,
+                Direction.LEFT
+        ));
+
+        for(int i = 0; i < randomness * complexity; i++){
+            int randomBlockIndex = rand.nextInt(blocks.size());
+            Direction randomDirection = directionList.get(rand.nextInt(directionList.size()));
+            push(randomBlockIndex, randomDirection);
+            while(isMoving()){
+                update();
+            }
+            update();
+        }
+
+        // Pick the goal block
+        Block goalBlock = null;
+        for(int j = 0; j < blocks.size(); j++){
+            Block potentialGoalBlock = blocks.get(j);
+            
+            // Check for collisions
+            if(potentialGoalBlock.getColor() != ColorType.GRAY_OBS){
+                goalBlock = potentialGoalBlock;
+                break;
+            }
+        }
+        System.out.println(goalBlock.getBlockInfo());
+
+        setGoal(new Goal(goalBlock.getColor(),
+            goalBlock.getX(),
+            goalBlock.getY(),
+            goalBlock.getWidth(),
+            goalBlock.getHeight()
+        ));
+
+        // revert to old positions
+        blocks = blocksSave;
+
     }
 
     // Helper to add block
