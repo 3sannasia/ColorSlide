@@ -119,7 +119,7 @@ public class Menu extends JFrame implements ActionListener {
         // Adding resized gif image to the menu screen
         Image image = null;
         try {
-            image = ImageIO.read(new File("course-project-vf-a/src/Graphics/block-sliding.gif"));
+            image = ImageIO.read(new File("./src/Graphics/block-sliding.gif"));
         } catch (IOException e) {
             e.printStackTrace();
         }

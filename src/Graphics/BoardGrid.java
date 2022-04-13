@@ -25,7 +25,7 @@ public class BoardGrid extends JPanel {
 
             for (int x =0 ; x < 500; x+=50) {
 
-                Color color = Color.CYAN;
+                Color color = Color.BLACK;
                 System.out.println(x + " kjdfb " + y);
                 
                 

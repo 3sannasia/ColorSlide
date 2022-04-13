@@ -2,18 +2,21 @@ package src.Graphics;
  
 import java.awt.*;
 import java.awt.Container;
-// import java.awt.Graphics;
-// import java.awt.Graphics2D;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
  
 import javax.swing.*;
-// import javax.swing.JComponent;
+
+
+// import org.w3c.dom.events.MouseEvent;
 
 import src.GameLogic.ColorType;
 import src.GameLogic.Direction;
-// import src.GameLogic.Block;
-// import src.GameLogic.ColorType;
 import src.GameLogic.LevelBoard;
  
 public class GameBoard extends JFrame implements ActionListener{
@@ -36,6 +39,8 @@ public class GameBoard extends JFrame implements ActionListener{
  
    // generic declarations for testing
    private LevelBoard currentBoard;
+
+   int block_idx;
  
  
    //-------- Construct with basic Board --------//
@@ -53,6 +58,16 @@ public class GameBoard extends JFrame implements ActionListener{
 
         // GridBoard
         grid = new BoardGrid(level);
+        grid.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent arg0) {
+              System.out.println("frame pressed");
+              System.out.println("dialog focused ");
+              System.out.println("frame focused " + arg0.getX() + " i love nunu " + arg0.getY());
+              block_idx = level.BlockIndexAt(arg0.getX(), arg0.getY());
+              super.mousePressed(arg0);
+            }
+          });
 
         
         // buttons
@@ -81,7 +96,7 @@ public class GameBoard extends JFrame implements ActionListener{
       score.setForeground(Color.LIGHT_GRAY);
       
 
-       // location of all buttons
+       // location of all buttons, grid, and labels
        c.setLayout(null);
        c.add( up_button);
        c.add( down_button);
@@ -90,7 +105,6 @@ public class GameBoard extends JFrame implements ActionListener{
        grid.setBounds(200, 200, 1000, 1000);
        c.add(title);
        c.add(score);
-
        c.add( grid);
 
  
@@ -99,13 +113,10 @@ public class GameBoard extends JFrame implements ActionListener{
        down_button.addActionListener(this);
        left_button.addActionListener(this);
        right_button.addActionListener(this);
- 
- 
- 
- 
-      
+  
    }
- 
+
+  
   
    @Override
    public void actionPerformed(ActionEvent e) {
@@ -113,33 +124,44 @@ public class GameBoard extends JFrame implements ActionListener{
        if(e.getActionCommand().equals("^")){
  
            System.out.println("up");
-        //    currentBoard.getBlocks().get(4).setColor(ColorType.ORANGE);
-            currentBoard.setSpeed(1);
-           currentBoard.push(0, Direction.UP);
-           repaint();
+            currentBoard.push(block_idx, Direction.UP);
+            while(currentBoard.isMoving()){
+                currentBoard.update();
+                repaint();
+            }
+           
            
  
        }else if(e.getActionCommand().equals("v")){
  
            System.out.println("down");
         //    currentBoard.getBlocks().get(4).setColor(ColorType.PURPLE);
-           currentBoard.push(0, Direction.DOWN);
-           repaint();
+            currentBoard.push(block_idx, Direction.DOWN);
+            while(currentBoard.isMoving()){
+                currentBoard.update();
+                repaint();
+            }
           
  
        }else if(e.getActionCommand().equals("<")){
  
            System.out.println("left");
         //    currentBoard.getBlocks().get(4).setColor(ColorType.GREEN);
-           currentBoard.push(0, Direction.LEFT);
-           repaint();
+            currentBoard.push(block_idx, Direction.LEFT);
+            while(currentBoard.isMoving()){
+                currentBoard.update();
+                repaint();
+            }
            
  
        }else if(e.getActionCommand().equals(">")){
  
            System.out.println("right");
-        //    currentBoard.getBlocks().get(4).setColor(ColorType.GRAY_OBS);
-           repaint();
+           currentBoard.push(block_idx, Direction.RIGHT);
+           while(currentBoard.isMoving()){
+               currentBoard.update();
+               repaint();
+           }
 
  
        }
