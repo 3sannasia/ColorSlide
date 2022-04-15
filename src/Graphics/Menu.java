@@ -117,16 +117,16 @@ public class Menu extends JFrame implements ActionListener {
 
         // Block sliding gif
         // Adding resized gif image to the menu screen
-        Image image = null;
-        try {
-            image = ImageIO.read(new File("./src/Graphics/block-sliding.gif"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Image image = null;
+        // try {
+        //     image = ImageIO.read(new File("./src/Graphics/block-sliding.gif"));
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
 
       
-        Image gif = getScaledImage(image, 800, 800);
-        ImageIcon icon = new ImageIcon(gif);
+        // Image gif = getScaledImage(image, 800, 800);
+        ImageIcon icon = new ImageIcon("course-project-vf-a/src/Graphics/block-sliding.gif");
         JLabel label = new JLabel(icon);
 
         panel.add(label);
