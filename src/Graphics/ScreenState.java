@@ -18,6 +18,11 @@ public class ScreenState {
     private String nextLevelFile = "src/Levels/LevelTest.txt"; //Set to level 2
     private String prevLevelFile = "";
  
+    /**
+     * Default constructor
+     */
+    public ScreenState() {}
+
   
     /**
      * Resets JFrame screen after button pressed on Menu screen
