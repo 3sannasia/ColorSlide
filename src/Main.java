@@ -22,25 +22,25 @@ public class Main {
                 Menu menu;
                 try {
                     menu = new Menu(WIDTH, HEIGHT);
-                    if (menu.getGameStarted()){
-                        level = new LevelBoard("src/Levels/LevelTest.txt", 50, 50);
-                        frame = new GameBoard(WIDTH, HEIGHT, level);
-                        frame.setSize(WIDTH, HEIGHT);
-                        frame.setResizable(false);
-                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        frame.setVisible(true);
+                    // if (menu.getGameStarted()){
+                    //     level = new LevelBoard("src/Levels/LevelTest.txt", 50, 50);
+                    //     frame = new GameBoard(WIDTH, HEIGHT, level);
+                    //     frame.setSize(WIDTH, HEIGHT);
+                    //     frame.setResizable(false);
+                    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    //     frame.setVisible(true);
     
-                    } else if (menu.getPreviousLevelPressed()) {
-                        level = new LevelBoard("src/Levels/LevelTest.txt", 50,50); // Replace with previous level .txt
-                        frame = new GameBoard(WIDTH, HEIGHT, level);
-                        frame.setSize(WIDTH, HEIGHT);
-                        frame.setResizable(false);
-                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        frame.setVisible(true);
+                    // } else if (menu.getPreviousLevelPressed()) {
+                    //     level = new LevelBoard("src/Levels/LevelTest.txt", 50,50); // Replace with previous level .txt
+                    //     frame = new GameBoard(WIDTH, HEIGHT, level);
+                    //     frame.setSize(WIDTH, HEIGHT);
+                    //     frame.setResizable(false);
+                    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    //     frame.setVisible(true);
 
-                    } else if (menu.getInstructionsPressed()) {
-                        Instructions instructionScreen = new Instructions(WIDTH, HEIGHT);
-                    }
+                    // } else if (menu.getInstructionsPressed()) {
+                    //     Instructions instructionScreen = new Instructions(WIDTH, HEIGHT);
+                    // }
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
