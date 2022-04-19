@@ -33,7 +33,7 @@ public class ScreenState {
         frame.dispose();
         
         
-        LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 50, 50);
+        LevelBoard level = new LevelBoard(getCurrentLevelFile(), 50, 50);
         GameBoard board = new GameBoard(width_, height_, level);
         board.setSize(width_, height_);
         board.setResizable(false);
@@ -51,7 +51,7 @@ public class ScreenState {
         // Creates and shows the Game Board
         LevelBoard level = new LevelBoard(getCurrentLevelFile(), 50,50); // Returns current level file
         GameBoard board = new GameBoard(width, height, level);
-        updateLevelFiles(currLevelFile);
+        // updateLevelFiles(currLevelFile);
 
         board.setSize(width, height);
         board.setResizable(false);
