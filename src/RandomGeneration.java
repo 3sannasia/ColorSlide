@@ -5,7 +5,8 @@ import src.GameLogic.LevelBoard;
 
 public class RandomGeneration {
     public static void main (String[] args) {
-        LevelBoard level = new LevelBoard(15, 5, 100, 100, 0);
+        // Size, crowdedness, complexity
+        LevelBoard level = new LevelBoard(20, 200, 30, 100, 100);
         System.out.println(level.getBoardGrid());
     }
 }

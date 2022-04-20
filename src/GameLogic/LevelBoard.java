@@ -8,8 +8,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Random;
 
-import org.junit.rules.TestRule;
-
 public class LevelBoard {
 
     private int width;
@@ -205,7 +203,7 @@ public class LevelBoard {
     // @param fileName: the file name of the text file to read from (see sample LevelTest)
     // @param scale: the block unit length
     // @param speed: the speed at which blocks move across a board
-    public LevelBoard(int randomness, int complexity, int scale, int allowedMoves, int extra){
+    public LevelBoard(int randomness, int crowdedness, int complexity, int scale, int allowedMoves){
         this(randomness, randomness, scale, allowedMoves);
 
         // Add walls
@@ -252,13 +250,13 @@ public class LevelBoard {
                 ColorType.PURPLE)
         );
 
-        for(int i = 0; i < randomness * complexity; i++){
+        for(int i = 0; i < crowdedness; i++){
             int width = (rand.nextInt(randomness / 3) + 1);
             width = Math.min(width, rand.nextInt(randomness / 3) + 1);
             int height = (rand.nextInt(randomness / 3) + 1);
             height = Math.min(height, rand.nextInt(randomness / 3) + 1);
-            int x = (rand.nextInt(randomness - width));
-            int y = (rand.nextInt(randomness - height));
+            int x = (rand.nextInt(randomness - width - 1)) + 1;
+            int y = (rand.nextInt(randomness - height - 1)) + 1;
 
             
             Block block = new Block(colorList.get(rand.nextInt(colorList.size())),
@@ -307,7 +305,7 @@ public class LevelBoard {
                 Direction.LEFT
         ));
 
-        for(int i = 0; i < randomness * complexity; i++){
+        for(int i = 0; i < complexity; i++){
             int randomBlockIndex = rand.nextInt(blocks.size());
             Direction randomDirection = directionList.get(rand.nextInt(directionList.size()));
             push(randomBlockIndex, randomDirection);
@@ -328,8 +326,6 @@ public class LevelBoard {
                 break;
             }
         }
-        System.out.println(goalBlock.getBlockInfo());
-
         setGoal(new Goal(goalBlock.getColor(),
             goalBlock.getX(),
             goalBlock.getY(),
