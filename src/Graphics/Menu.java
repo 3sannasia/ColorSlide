@@ -48,46 +48,46 @@ public class Menu extends JFrame implements ActionListener {
 
     public Menu() {
         // Setting up the window and the menu drop down
-        frame = new JFrame("Menu");
-        menu_bar = new JMenuBar();
-        menu = new JMenu("Play");
-        frame.getContentPane();
-        play = new JMenuItem("Start Game");
-        instructions = new JMenuItem("Instructions");
-        previousLevel = new JMenuItem("Previous Level");
-        quit = new JMenuItem("Quit");
+        // frame = new JFrame("Menu");
+        // menu_bar = new JMenuBar();
+        // menu = new JMenu("Play");
+        // frame.getContentPane();
+        // play = new JMenuItem("Start Game");
+        // instructions = new JMenuItem("Instructions");
+        // previousLevel = new JMenuItem("Previous Level");
+        // quit = new JMenuItem("Quit");
 
-        // Adding a gif animation in the title screen
-        label = new JLabel("block-sliding.gif");
-        frame.add(label, BorderLayout.CENTER);
+        // // Adding a gif animation in the title screen
+        // label = new JLabel("block-sliding.gif");
+        // frame.add(label, BorderLayout.CENTER);
 
-        //Coloring Drop Down Menu for appealing aesthetics
-        play.setBackground(Color.GREEN);
-        instructions.setForeground(Color.BLACK);
-        previousLevel.setForeground(Color.BLACK);
-        quit.setBackground(Color.red);
+        // //Coloring Drop Down Menu for appealing aesthetics
+        // play.setBackground(Color.GREEN);
+        // instructions.setForeground(Color.BLACK);
+        // previousLevel.setForeground(Color.BLACK);
+        // quit.setBackground(Color.red);
 
-        // Adding components to the menu bar
-        menu_bar.add(menu);
-        menu.add(play);
-        menu.add(instructions);
-        menu.add(previousLevel);
-        menu.add(quit);
+        // // Adding components to the menu bar
+        // menu_bar.add(menu);
+        // menu.add(play);
+        // menu.add(instructions);
+        // menu.add(previousLevel);
+        // menu.add(quit);
 
-        // Color Pane
-        panel = new JPanel();
-        panel.setBackground(Color.orange);
-        frame.add(panel, BorderLayout.CENTER);
+        // // Color Pane
+        // panel = new JPanel();
+        // panel.setBackground(Color.orange);
+        // frame.add(panel, BorderLayout.CENTER);
 
 
-        play.addActionListener(this);
-        instructions.addActionListener(this);
-        previousLevel.addActionListener(this);
-        quit.addActionListener(this);
+        // play.addActionListener(this);
+        // instructions.addActionListener(this);
+        // previousLevel.addActionListener(this);
+        // quit.addActionListener(this);
 
-        frame.setJMenuBar(menu_bar);
-        frame.setSize(800, 800);
-        frame.setVisible(true);
+        // frame.setJMenuBar(menu_bar);
+        // frame.setSize(800, 800);
+        // frame.setVisible(true);
     }
 
     /**

@@ -40,6 +40,15 @@ public class GameBoard extends JFrame implements ActionListener{
    // generic declarations for testing
    private LevelBoard currentBoard;
 
+   static JMenu settings;
+    static JMenuItem instructions;
+    static JMenuItem previousLevel;
+    static JMenuItem quit;
+    static JMenuItem reset;
+    static JFrame frame;
+    static JMenuBar menu_bar;
+ 
+ 
    int block_idx;
  
  
@@ -48,6 +57,38 @@ public class GameBoard extends JFrame implements ActionListener{
    public GameBoard(int width, int height, LevelBoard level) {
       
         super("Game Board");
+
+
+          //ADDED BY AKASH
+       JFrame frame = new JFrame("Game Board");
+
+       menu_bar = new JMenuBar();
+       settings = new JMenu("Settings");
+       instructions = new JMenuItem("Instructions");
+       previousLevel = new JMenuItem("Previous Level");
+       reset = new JMenuItem("Reset");
+       quit = new JMenuItem("Quit");
+
+       instructions.setForeground(Color.BLACK);
+       previousLevel.setForeground(Color.BLACK);
+       previousLevel.setBackground(Color.GREEN);
+       quit.setBackground(Color.red);
+
+       menu_bar.add(settings);
+       settings.add(instructions);
+       settings.add(reset);
+       settings.add(previousLevel);
+       settings.add(quit);
+
+       instructions.addActionListener(this);
+       previousLevel.addActionListener(this);
+       quit.addActionListener(this);
+       frame.setJMenuBar(menu_bar);
+       frame.setSize(width, height);
+       // frame.setResizable(false);
+       frame.setVisible(true);
+
+      //END OF ADDED BY AKASH
 
         //backend logic initialization
         currentBoard = level;
@@ -120,6 +161,8 @@ public class GameBoard extends JFrame implements ActionListener{
   
    @Override
    public void actionPerformed(ActionEvent e) {
+    Menu menu = new Menu();
+    ScreenState state = new ScreenState();
        // TODO Auto-generated method stub
        if(block_idx > 3){
         if(e.getActionCommand().equals("^")){ // if the user clicks up
@@ -155,10 +198,25 @@ public class GameBoard extends JFrame implements ActionListener{
                 repaint();
             }
             block_idx = 0; // resets block_idx so user has to click on new block in order to move it
-        }
+          
        }
-   }
- 
+    }
+    
+    
+if(e.getSource() == instructions){
+        
+    menu.Instructions();
+}else if (e.getSource() == previousLevel){
+    menu.PreviousLevel();
+} else if (e.getSource() == quit) {
+    dispose();
+} else if (e.getSource() == reset){
+    state.resetLevel(this);
+} else {
+       }
+    }
 }
+
+ 
  
 
