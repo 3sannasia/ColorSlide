@@ -14,7 +14,7 @@ public class Main {
             public void run(){
                 final int WIDTH = 800;
                 final int HEIGHT = 800;
-                LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100);
+                LevelBoard level = new LevelBoard("src/Levels/LevelTest.txt", 100, 50);
                 GameBoard frame = new GameBoard(WIDTH, HEIGHT, level);
                 frame.setSize(WIDTH, HEIGHT);
                 frame.setResizable(false);
@@ -26,14 +26,14 @@ public class Main {
             
                 System.out.println(level.getLevelInfo());
 
-                int indexRedBlock1 = level.BlockIndexAt(650, 150);
+                int indexYellowBlock1 = level.BlockIndexAt(750, 750);
 
-                level.push(indexRedBlock1, Direction.LEFT);
+                level.push(indexYellowBlock1, Direction.RIGHT);
 
                 for(int i = 0; i < 6; i++){
                     level.update();
                     System.out.println(level.getBoardGrid());
-                    System.out.println(level.getBlocks().get(indexRedBlock1).getBlockInfo());
+                    System.out.println(level.getBlocks().get(indexYellowBlock1).getBlockInfo());
                     System.out.println(level.isComplete());
                 }
             }
