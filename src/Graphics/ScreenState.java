@@ -9,7 +9,7 @@ import src.Graphics.*;
  * Starts at the Menu screen
  */
 public class ScreenState {
-    private static int currentLevel = 0;
+    private static int currentLevel = 1;
     private int width = 800;
     private int height = 800;
 
@@ -33,12 +33,12 @@ public class ScreenState {
         frame.dispose();
         
         
-        LevelBoard level = new LevelBoard(getCurrentLevelFile(), 50, 50);
-        GameBoard board = new GameBoard(width_, height_, level);
-        board.setSize(width_, height_);
-        board.setResizable(false);
-        board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        board.setVisible(true);
+        // LevelBoard level = new LevelBoard(getCurrentLevelFile(), 50, 50);
+        // GameBoard board = new GameBoard(width_, height_, level);
+        // board.setSize(width_, height_);
+        // board.setResizable(false);
+        // board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // board.setVisible(true);
     }
 
     /**
@@ -74,6 +74,7 @@ public class ScreenState {
         //Add game end screen
         frame.dispose();
         LevelBoard level = new LevelBoard(getNextLevelFile(), 50,50); // Returns current level file
+        currentLevel++;
         GameBoard board = new GameBoard(width, height, level);
         // updateLevelFiles(nextLevelFile);
         
@@ -92,10 +93,10 @@ public class ScreenState {
 
         // Checks if previous level is valid
         if (currentLevel > 1) {
-            currentLevel--;
             
             // Creates the game board for the previous level
             LevelBoard level = new LevelBoard(getPrevLevelFile(), 50,50); // Replace with previous level .txt
+            currentLevel--;
             GameBoard board = new GameBoard(width, height, level);
             // updateLevelFiles(prevLevelFile);
 
@@ -138,23 +139,23 @@ public class ScreenState {
      */
     public String getPrevLevelFile(){
         if (currentLevel == 0) {
-            return "src/Levels/Level1.txt";
+            return "course-project-vf-a/src/Levels/Level1.txt";
         }
-        return "src/Levels/Level" + (currentLevel - 1) + ".txt";
+        return "course-project-vf-a/src/Levels/Level" + (currentLevel - 1) + ".txt";
     }
 
     /**
      * Returns next level file as a String
      */
     public String getNextLevelFile() {
-        return "src/Levels/Level" + (currentLevel + 1) + ".txt";
+        return "course-project-vf-a/src/Levels/Level" + (currentLevel + 1) + ".txt";
     }
 
     /**
      * Returns current level file as a String
      */
     public String getCurrentLevelFile() {
-        return "src/Levels/Level" + currentLevel + ".txt";
+        return "course-project-vf-a/src/Levels/Level" + currentLevel + ".txt";
     }
 
     /**
