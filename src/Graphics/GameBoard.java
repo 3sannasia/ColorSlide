@@ -2,17 +2,21 @@ package src.Graphics;
  
 import java.awt.*;
 import java.awt.Container;
-// import java.awt.Graphics;
-// import java.awt.Graphics2D;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
  
 import javax.swing.*;
-// import javax.swing.JComponent;
+
+
+// import org.w3c.dom.events.MouseEvent;
 
 import src.GameLogic.ColorType;
-// import src.GameLogic.Block;
-// import src.GameLogic.ColorType;
+import src.GameLogic.Direction;
 import src.GameLogic.LevelBoard;
  
 public class GameBoard extends JFrame implements ActionListener{
@@ -25,6 +29,9 @@ public class GameBoard extends JFrame implements ActionListener{
    private JButton down_button;
    private JButton left_button;
    private JButton right_button;
+
+   private JLabel title;
+   private JLabel score;
  
 
    private BoardGrid grid;
@@ -32,16 +39,18 @@ public class GameBoard extends JFrame implements ActionListener{
  
    // generic declarations for testing
    private LevelBoard currentBoard;
+
+   int block_idx;
  
  
    //-------- Construct with basic Board --------//
  
    public GameBoard(int width, int height, LevelBoard level) {
       
-       super("Game Board");
+        super("Game Board");
 
-       //backend logic
-       currentBoard = level;
+        //backend logic initialization
+        currentBoard = level;
       
         Container c = getContentPane();
         c.setBackground(Color.BLACK);
@@ -50,71 +59,104 @@ public class GameBoard extends JFrame implements ActionListener{
         // GridBoard
         grid = new BoardGrid(level);
 
+        // adding mouselistener just on the game board grid:
+        grid.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent arg0) {
+              block_idx = level.BlockIndexAt(arg0.getX(), arg0.getY());
+              super.mousePressed(arg0);
+            }
+          });
+        
+
         // buttons
+        int move_btn_y = 200;
+        int move_btn_x = 20;
         up_button = new JButton("^");
-        up_button.setBackground(Color.DARK_GRAY);
+        up_button.setBounds(50 + move_btn_x, 10 + move_btn_y, 30, 30);
+        down_button = new JButton("v");
+        down_button.setBounds(50+ move_btn_x, 90+ move_btn_y, 30, 30);
+        left_button = new JButton("<");
+        left_button.setBounds(10+ move_btn_x, 50+ move_btn_y, 30, 30);
+        right_button = new JButton(">");
+        right_button.setBounds(90+ move_btn_x, 50+ move_btn_y, 30, 30);
+       
 
-       down_button = new JButton("v");
-       down_button.setBackground(Color.DARK_GRAY);
 
-       left_button = new JButton("<");
-       left_button.setBackground(Color.DARK_GRAY);
+        //labels
+        title = new JLabel("Color Logic Game");
+        title.setBounds(250,100, 500, 50);
+        title.setFont(new Font("Book Antiqua", Font.PLAIN, 40));
+        title.setForeground(Color.LIGHT_GRAY);
 
-       right_button = new JButton(">");
-       right_button.setBackground(Color.DARK_GRAY);
+        score = new JLabel("Score: 0");
+        score.setBounds(600,2, 150, 50);
+        score.setFont(new Font("Book Antiqua", Font.PLAIN, 20));
+        score.setForeground(Color.LIGHT_GRAY);
+        
 
-       // label for level
-    //    level_label = new JLabel("Level : 0");
+        // location of all buttons, grid, and labels
+        c.setLayout(null);
+        c.add( up_button);
+        c.add( down_button);
+        c.add( left_button);
+        c.add( right_button);
+        grid.setBounds(200, 200, 1000, 1000);
+        c.add(title);
+        c.add(score);
+        c.add( grid);
 
-       // location of all buttons
-       c.add(BorderLayout.PAGE_START, up_button);
-       c.add(BorderLayout.SOUTH, down_button);
-       c.add(BorderLayout.WEST, left_button);
-       c.add(BorderLayout.EAST, right_button);
-
-       c.add(BorderLayout.CENTER, grid);
-    //    c.add(BorderLayout.CENTER, level_label);
  
-       // button onclick
-       up_button.addActionListener(this);
-       down_button.addActionListener(this);
-       left_button.addActionListener(this);
-       right_button.addActionListener(this);
- 
- 
- 
- 
-      
+        // button onclick
+        up_button.addActionListener(this);
+        down_button.addActionListener(this);
+        left_button.addActionListener(this);
+        right_button.addActionListener(this);
+  
    }
+
  
+   //-------- Button Click Action Event Listener --------//  
   
    @Override
    public void actionPerformed(ActionEvent e) {
        // TODO Auto-generated method stub
-       if(e.getActionCommand().equals("^")){
- 
-           System.out.println("up");
-           currentBoard.getBlocks().get(0).setColor(ColorType.PURPLE);
-           grid.DrawBoardGrid();
-           
- 
-       }else if(e.getActionCommand().equals("v")){
- 
-           System.out.println("down");
-           grid.DrawBoardGrid();
- 
-       }else if(e.getActionCommand().equals("<")){
- 
-           System.out.println("left");
-           grid.DrawBoardGrid();
- 
-       }else if(e.getActionCommand().equals(">")){
- 
-           System.out.println("right");
-           grid.DrawBoardGrid();
- 
+       if(block_idx > 3){
+        if(e.getActionCommand().equals("^")){ // if the user clicks up
+             currentBoard.push(block_idx, Direction.UP);
+             while(currentBoard.isMoving()){
+                 currentBoard.update();
+                 repaint();
+             }
+             block_idx = 0; // resets block_idx so user has to click on new block in order to move it
+            
+            
+  
+        }else if(e.getActionCommand().equals("v")){ // if the user clicks down
+             currentBoard.push(block_idx, Direction.DOWN);
+             while(currentBoard.isMoving()){
+                 currentBoard.update();
+                 repaint();
+             }
+             block_idx = 0; // resets block_idx so user has to click on new block in order to move it
+  
+        }else if(e.getActionCommand().equals("<")){ // if the user clicks left
+             currentBoard.push(block_idx, Direction.LEFT);
+             while(currentBoard.isMoving()){
+                 currentBoard.update();
+                 repaint();
+             }
+             block_idx = 0; // resets block_idx so user has to click on new block in order to move it
+  
+        }else if(e.getActionCommand().equals(">")){ // if the user clicks right
+            currentBoard.push(block_idx, Direction.RIGHT);
+            while(currentBoard.isMoving()){
+                currentBoard.update();
+                repaint();
+            }
+            block_idx = 0; // resets block_idx so user has to click on new block in order to move it
+        }
        }
-      
    }
  
 }
