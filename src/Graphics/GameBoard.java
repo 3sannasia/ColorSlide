@@ -198,23 +198,31 @@ public class GameBoard extends JFrame implements ActionListener{
                 repaint();
             }
             block_idx = 0; // resets block_idx so user has to click on new block in order to move it
-          
-       }
+        }
     }
-    
-    
-if(e.getSource() == instructions){
-        
-    menu.Instructions();
-}else if (e.getSource() == previousLevel){
-    menu.PreviousLevel();
-} else if (e.getSource() == quit) {
-    dispose();
-} else if (e.getSource() == reset){
-    state.resetLevel(this);
-} else {
-       }
+    //Settings bar actions
+    if(e.getSource() == instructions){
+
+        // Builds instruction screen
+        menu.Instructions();
+
+        } else if (e.getSource() == previousLevel) {
+
+            // Builds previous level game board
+            menu.PreviousLevel();
+
+        } else if (e.getSource() == quit) {
+
+            //Quits the game
+            dispose();
+
+        } else if (e.getSource() == reset) {
+
+            state.resetLevel(this);
+            
+        } else {
     }
+}
 }
 
  
