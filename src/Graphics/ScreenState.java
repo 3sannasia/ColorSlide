@@ -63,6 +63,8 @@ public class ScreenState {
 
         //Loading next level if won
         if (level.isComplete()){
+            JOptionPane.showMessageDialog(frame, "Onto the next!",
+            "Level Completed", JOptionPane.ERROR_MESSAGE);
             nextLevel(frame);
         }
     }
