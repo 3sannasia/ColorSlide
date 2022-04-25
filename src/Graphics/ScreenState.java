@@ -140,7 +140,7 @@ public class ScreenState {
      * Returns previous level file as a String
      */
     public String getPrevLevelFile(){
-        if (currentLevel == 0) {
+        if (currentLevel - 1 == 0) {
             return "course-project-vf-a/src/Levels/Level1.txt";
         }
         return "course-project-vf-a/src/Levels/Level" + (currentLevel - 1) + ".txt";
