@@ -22,8 +22,8 @@ public class Main {
 
                 GameBoard frame;
                 Menu menu;
-                // try {
-                //     menu = new Menu(WIDTH, HEIGHT);
+                try {
+                    menu = new Menu(WIDTH, HEIGHT);
                 //     // if (menu.getGameStarted()){
                 //     //     level = new LevelBoard("src/Levels/LevelTest.txt", 50, 50);
                 //     //     frame = new GameBoard(WIDTH, HEIGHT, level);
@@ -43,10 +43,10 @@ public class Main {
                 //     // } else if (menu.getInstructionsPressed()) {
                 //     //     Instructions instructionScreen = new Instructions(WIDTH, HEIGHT);
                 //     // }
-                // } catch (IOException e) {
-                //     // TODO Auto-generated catch block
-                //     e.printStackTrace();
-                // }
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
 
 
