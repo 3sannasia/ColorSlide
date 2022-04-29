@@ -12,6 +12,14 @@ public class ScreenState {
     private static int currentLevel = 1;
     private int width = 800;
     private int height = 800;
+    private boolean nextLevel = false;
+
+    public void levelComplete(boolean toChange) {
+        nextLevel = toChange;
+    }
+    public boolean getLevelComplete() {
+        return nextLevel;
+    }
 
     //File management
     // private String currLevelFile = "src/Levels/LevelTest.txt"; //Set to level 1
@@ -21,7 +29,10 @@ public class ScreenState {
     /**
      * Default constructor
      */
-    public ScreenState() {}
+    public ScreenState() {
+        height = 800;
+        width = 800;
+    }
 
   
     /**
