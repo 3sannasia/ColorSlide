@@ -28,29 +28,31 @@ public class BoardGrid extends JPanel {
             for (int x = 0 ; x < level_.getWidth(); x+= level_.getScale()) {
 
                 Color color = Color.BLACK;
-                if(x == goal.getX() && y == goal.getY()){
-                    if(goal.getColor()==ColorType.RED){
-                        color = new Color(255, 0, 0, 175);
-                    }else if(goal.getColor()==ColorType.YELLOW){
-                        color = new Color(255, 255, 0, 175);;
-                    }else if(goal.getColor()==ColorType.BLUE){
-                        color = new Color(0, 0, 255, 175);
-                    }else if(goal.getColor()==ColorType.GRAY_OBS){
-                        color = new Color(100, 100, 100, 175);
-                    }else if(goal.getColor()==ColorType.WHITE_NEUTRAL){
-                        color = new Color(255, 255, 255, 175);
-                    }else if(goal.getColor()==ColorType.GREEN){
-                        color = new Color(0, 255, 0, 175);
-                    }else if(goal.getColor()==ColorType.ORANGE){
-                        color = new Color(255, 100, 0, 175);
-                    }else if(goal.getColor()==ColorType.PURPLE){
-                        color = new Color(255, 0, 255, 175); // don't know if this works
-                    }
-                  
+                for(int xx = 0; xx < goal.getWidth(); xx+=50){
+                    for(int yy = 0; yy < goal.getHeight(); yy+=50){
+                        if(x == goal.getX() + xx && y == goal.getY() + yy){
+                            if(goal.getColor()==ColorType.RED){
+                                color = new Color(255, 0, 0, 175);
+                            }else if(goal.getColor()==ColorType.YELLOW){
+                                color = new Color(255, 255, 0, 175);;
+                            }else if(goal.getColor()==ColorType.BLUE){
+                                color = new Color(0, 0, 255, 175);
+                            }else if(goal.getColor()==ColorType.GRAY_OBS){
+                                color = new Color(100, 100, 100, 175);
+                            }else if(goal.getColor()==ColorType.WHITE_NEUTRAL){
+                                color = new Color(255, 255, 255, 175);
+                            }else if(goal.getColor()==ColorType.GREEN){
+                                color = new Color(0, 255, 0, 175);
+                            }else if(goal.getColor()==ColorType.ORANGE){
+                                color = new Color(255, 100, 0, 175);
+                            }else if(goal.getColor()==ColorType.PURPLE){
+                                color = new Color(255, 0, 255, 175); // don't know if this works
+                            } 
+                        }
                     
-                }
+                    }
 
-                
+                }
                
                 // displaying each block according to color
                 int blockIndex = level_.BlockIndexAt(x + level_.getScale() / 2 , y + drawScale / 2 );

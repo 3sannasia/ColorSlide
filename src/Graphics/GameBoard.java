@@ -54,10 +54,10 @@ public class GameBoard extends JFrame implements ActionListener{
  
    //-------- Construct with basic Board --------//
  
-   public GameBoard(int width, int height, LevelBoard level) {
+   public GameBoard(int width, int height, LevelBoard level, int level_num) {
       
         super("Game Board");
-
+        
 
           //ADDED BY AKASH
        JFrame frame = new JFrame("Game Board");
@@ -133,11 +133,15 @@ public class GameBoard extends JFrame implements ActionListener{
         title.setFont(new Font("Book Antiqua", Font.PLAIN, 40));
         title.setForeground(Color.LIGHT_GRAY);
 
-        score = new JLabel("Score: 0");
+        score = new JLabel("Moves Left: " + (level.getAllowedMoves() - level.getMoves()));
         score.setBounds(600,2, 150, 50);
         score.setFont(new Font("Book Antiqua", Font.PLAIN, 20));
         score.setForeground(Color.LIGHT_GRAY);
         
+        level_label = new JLabel("Level: " + level_num );
+        level_label.setBounds(75,2, 150, 50);
+        level_label.setFont(new Font("Book Antiqua", Font.PLAIN, 20));
+        level_label.setForeground(Color.white);
 
         // location of all buttons, grid, and labels
         c.setLayout(null);
@@ -148,9 +152,10 @@ public class GameBoard extends JFrame implements ActionListener{
         grid.setBounds(200, 200, 1000, 1000);
         c.add(title);
         c.add(score);
+        c.add(level_label);
         c.add( grid);
 
- 
+
         // button onclick
         up_button.addActionListener(this);
         down_button.addActionListener(this);
@@ -175,6 +180,9 @@ public class GameBoard extends JFrame implements ActionListener{
                  repaint();
              }
              block_idx = 0; // resets block_idx so user has to click on new block in order to move it
+
+             // update num moves left
+             score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
             
             
   
@@ -185,6 +193,9 @@ public class GameBoard extends JFrame implements ActionListener{
                  repaint();
              }
              block_idx = 0; // resets block_idx so user has to click on new block in order to move it
+
+              // update num moves left
+              score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
   
         }else if(e.getActionCommand().equals("<")){ // if the user clicks left
              currentBoard.push(block_idx, Direction.LEFT);
@@ -193,6 +204,9 @@ public class GameBoard extends JFrame implements ActionListener{
                  repaint();
              }
              block_idx = 0; // resets block_idx so user has to click on new block in order to move it
+
+              // update num moves left
+              score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
   
         }else if(e.getActionCommand().equals(">")){ // if the user clicks right
             currentBoard.push(block_idx, Direction.RIGHT);
@@ -201,6 +215,9 @@ public class GameBoard extends JFrame implements ActionListener{
                 repaint();
             }
             block_idx = 0; // resets block_idx so user has to click on new block in order to move it
+
+             // update num moves left
+             score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
           
         }
         //Loading next level if won
@@ -217,19 +234,21 @@ public class GameBoard extends JFrame implements ActionListener{
 
     
     
-if(e.getSource() == instructions){
-        
-    menu.Instructions();
-}else if (e.getSource() == previousLevel){
-    menu.PreviousLevel();
-} else if (e.getSource() == quit) {
-    dispose();
-} else if (e.getSource() == reset){
-    state.resetLevel(this);
-} else {
-       }
+        if(e.getSource() == instructions){
+                
+            menu.Instructions();
+        }else if (e.getSource() == previousLevel){
+            menu.PreviousLevel();
+        } else if (e.getSource() == quit) {
+            dispose();
+        } else if (e.getSource() == reset){
+            state.resetLevel(this);
+        } else {
+        }
     }
 }
+
+
 
  
  
