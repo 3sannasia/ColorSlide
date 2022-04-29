@@ -169,53 +169,67 @@ public class GameBoard extends JFrame implements ActionListener{
     Menu menu = new Menu();
     ScreenState state = new ScreenState();
        // TODO Auto-generated method stub
-       if(block_idx > 3){
+       if(block_idx > 3 && (currentBoard.getAllowedMoves() - currentBoard.getMoves()) > 0){
         if(e.getActionCommand().equals("^")){ // if the user clicks up
              currentBoard.push(block_idx, Direction.UP);
+             boolean tt = false;
              while(currentBoard.isMoving()){
+                 tt = true;
                  currentBoard.update();
                  repaint();
              }
              block_idx = 0; // resets block_idx so user has to click on new block in order to move it
 
              // update num moves left
-             score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
+             if(tt){
+                score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
+             }
+             
             
             
   
         }else if(e.getActionCommand().equals("v")){ // if the user clicks down
              currentBoard.push(block_idx, Direction.DOWN);
+             boolean tt = false;
              while(currentBoard.isMoving()){
+                tt = true;
                  currentBoard.update();
                  repaint();
              }
              block_idx = 0; // resets block_idx so user has to click on new block in order to move it
 
               // update num moves left
-              score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
-  
+              if(tt){
+                score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
+             }  
         }else if(e.getActionCommand().equals("<")){ // if the user clicks left
              currentBoard.push(block_idx, Direction.LEFT);
+             boolean tt = false;
              while(currentBoard.isMoving()){
+                tt = true;
                  currentBoard.update();
                  repaint();
              }
              block_idx = 0; // resets block_idx so user has to click on new block in order to move it
 
               // update num moves left
-              score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
-  
+              if(tt){
+                score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
+             }  
         }else if(e.getActionCommand().equals(">")){ // if the user clicks right
             currentBoard.push(block_idx, Direction.RIGHT);
+            boolean tt = false;
             while(currentBoard.isMoving()){
+                tt = true;
                 currentBoard.update();
                 repaint();
             }
             block_idx = 0; // resets block_idx so user has to click on new block in order to move it
 
              // update num moves left
-             score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
-          
+             if(tt){
+                score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
+             }          
         }
         //Loading next level if won
         if (currentBoard.isComplete()){
@@ -229,10 +243,7 @@ public class GameBoard extends JFrame implements ActionListener{
         }
     }
 
-    
-    
-        if(e.getSource() == instructions){
-                
+        if(e.getSource() == instructions){     
             menu.Instructions();
         }else if (e.getSource() == previousLevel){
             menu.PreviousLevel();
