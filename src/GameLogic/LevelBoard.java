@@ -609,7 +609,7 @@ public class LevelBoard {
             readInRow(nextline, rowNum);
         }
 
-        moves =  allowedMoves;
+        moves = 0;
     }
 
     //-------- Color Mixing --------//
