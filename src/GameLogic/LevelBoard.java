@@ -608,6 +608,8 @@ public class LevelBoard {
             String nextline = lines[rowNum];
             readInRow(nextline, rowNum);
         }
+
+        moves =  allowedMoves;
     }
 
     //-------- Color Mixing --------//
