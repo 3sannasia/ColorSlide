@@ -205,6 +205,8 @@ public class GameBoard extends JFrame implements ActionListener{
               if(tt){
                 score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
              }  
+
+             
         }else if(e.getActionCommand().equals("<")){ // if the user clicks left
              currentBoard.push(block_idx, Direction.LEFT);
              boolean tt = false;
@@ -228,7 +230,6 @@ public class GameBoard extends JFrame implements ActionListener{
                 repaint();
             }
             block_idx = 0; // resets block_idx so user has to click on new block in order to move it
-
              // update num moves left
              if(tt){
                 score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
@@ -240,6 +241,14 @@ public class GameBoard extends JFrame implements ActionListener{
             "Level Completed", JOptionPane.ERROR_MESSAGE);
             state.levelComplete(true);
         }
+
+        else if((currentBoard.getAllowedMoves() - currentBoard.getMoves())<=0){ // if all moves are used, then reset the level
+            currentBoard.reset();
+            repaint();
+        }
+
+
+
         if (state.getLevelComplete() == true) {
             dispose();
             state.startGame(new JFrame());
