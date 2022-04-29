@@ -219,9 +219,14 @@ public class GameBoard extends JFrame implements ActionListener{
         if (currentBoard.isComplete()){
             JOptionPane.showMessageDialog(frame, "Onto the next!",
             "Level Completed", JOptionPane.ERROR_MESSAGE);
-            // nextLevel(frame);
+            state.levelComplete(true);
+        }
+        if (state.getLevelComplete() == true) {
+            dispose();
+            state.startGame(new JFrame());
         }
     }
+
     
     
         if(e.getSource() == instructions){
