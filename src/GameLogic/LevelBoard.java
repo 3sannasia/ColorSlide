@@ -358,6 +358,12 @@ public class LevelBoard {
         return blocks;
     }
 
+    // Helper to get goal
+    // @return: the goal
+    public Goal getGoal() {
+        return goal;
+    }    
+
     // Basic information printer for Console
     // @return: a string enumerating a list of blocks
     public String getLevelInfo() {
