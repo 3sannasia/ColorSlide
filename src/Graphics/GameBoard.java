@@ -244,6 +244,7 @@ public class GameBoard extends JFrame implements ActionListener{
 
         else if((currentBoard.getAllowedMoves() - currentBoard.getMoves())<=0){ // if all moves are used, then reset the level
             currentBoard.reset();
+            score.setText("Moves Left: " + (currentBoard.getAllowedMoves() - currentBoard.getMoves()));
             repaint();
         }
 
