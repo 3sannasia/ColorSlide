@@ -54,10 +54,10 @@ public class GameBoard extends JFrame implements ActionListener{
  
    //-------- Construct with basic Board --------//
  
-   public GameBoard(int width, int height, LevelBoard level) {
+   public GameBoard(int width, int height, LevelBoard level, int level_num) {
       
         super("Game Board");
-
+        
 
           //ADDED BY AKASH
        JFrame frame = new JFrame("Game Board");
@@ -135,10 +135,10 @@ public class GameBoard extends JFrame implements ActionListener{
         score.setFont(new Font("Book Antiqua", Font.PLAIN, 20));
         score.setForeground(Color.LIGHT_GRAY);
         
-        // level_label = new JLabel("Level: " + );
-        // level_label.setBounds(600,2, 150, 50);
-        // level_label.setFont(new Font("Book Antiqua", Font.PLAIN, 20));
-        // level_label.setForeground(Color.LIGHT_GRAY);
+        level_label = new JLabel("Level: " + level_num );
+        level_label.setBounds(75,2, 150, 50);
+        level_label.setFont(new Font("Book Antiqua", Font.PLAIN, 20));
+        level_label.setForeground(Color.white);
 
         // location of all buttons, grid, and labels
         c.setLayout(null);
@@ -149,7 +149,9 @@ public class GameBoard extends JFrame implements ActionListener{
         grid.setBounds(200, 200, 1000, 1000);
         c.add(title);
         c.add(score);
+        c.add(level_label);
         c.add( grid);
+
 
         // button onclick
         up_button.addActionListener(this);

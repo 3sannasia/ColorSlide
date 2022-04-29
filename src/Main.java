@@ -43,9 +43,13 @@ public class Main {
                 // int indexRedBlock1 = level.BlockIndexAt(650, 150);
                 // level.push(indexRedBlock1, Direction.LEFT);
 
+
+
                 for(int i = 0; i < 6; i++){
                     level.update();
                     System.out.println(level.getBoardGrid());
+                    // System.out.println(level.getBlocks().get(indexYellowBlock1).getBlockInfo());
+                    // System.out.println(level.isComplete());
                 }
             }
         });
