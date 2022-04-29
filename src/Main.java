@@ -57,7 +57,7 @@ public class Main {
                 // // Now the menu controls the screens when buttons are pressed (calls ScreenState.java)
                 // Try reading in a Test Case
                 
-                LevelBoard level = new LevelBoard("course-project-vf-a/src/Levels/Level1.txt", 100, 50);
+                LevelBoard level = new LevelBoard("src/Levels/Level1.txt", 100, 50);
             
                 // System.out.println(level.getLevelInfo());
 

@@ -199,7 +199,13 @@ public class GameBoard extends JFrame implements ActionListener{
             }
             block_idx = 0; // resets block_idx so user has to click on new block in order to move it
           
-       }
+        }
+        //Loading next level if won
+        if (currentBoard.isComplete()){
+            JOptionPane.showMessageDialog(frame, "Onto the next!",
+            "Level Completed", JOptionPane.ERROR_MESSAGE);
+            // nextLevel(frame);
+        }
     }
     
     
