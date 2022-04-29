@@ -106,8 +106,6 @@ public class GameBoard extends JFrame implements ActionListener{
             public void mousePressed(MouseEvent arg0) {
               int drawScale = 40;
               block_idx = level.BlockIndexAt(arg0.getX() * level.getScale() / drawScale, arg0.getY() * level.getScale() / drawScale);
-              // block_idx = level.BlockIndexAt(arg0.getX(), arg0.getY());
-              System.out.println(arg0.getX() * level.getScale() / drawScale + " " + arg0.getX());
               super.mousePressed(arg0);
             }
           });
