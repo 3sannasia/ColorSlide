@@ -14,18 +14,22 @@ public class ScreenState {
     private int height = 800;
     private boolean nextLevel = false;
 
+
+
+    /**
+     * Checks if level is complete
+     */ 
     public void levelComplete(boolean toChange) {
         nextLevel = toChange;
     }
+
+    /**
+     * Returns whether level is complete
+     */
     public boolean getLevelComplete() {
         return nextLevel;
     }
 
-    //File management
-    // private String currLevelFile = "src/Levels/LevelTest.txt"; //Set to level 1
-    // private String nextLevelFile = "src/Levels/LevelTest.txt"; //Set to level 2
-    // private String prevLevelFile = "";
- 
     /**
      * Default constructor
      */
@@ -119,18 +123,6 @@ public class ScreenState {
             JOptionPane.showMessageDialog(frame, "Invalid Level!",
             "Back to Level 1", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-     /**
-     * Updates nextLevel to be the file for the next level when levels are progressed
-     * Returns current level at the same time
-     */
-    private void updateLevelFiles(String newCurrentFile){
-        //MAKE SYSTEM TO GET FILE BASED ON LEVEL NUMBER
-        // prevLevelFile = currLevelFile;
-        // currLevelFile = nextLevelFile;
-        // nextLevel = GetNextLevel function that accesses folder of levels
-        // nextLevelFile = ;
     }
 
     /**
