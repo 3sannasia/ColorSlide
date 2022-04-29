@@ -21,10 +21,12 @@ public class BoardGrid extends JPanel {
     @Override
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
+        int drawScale = 40;
         Goal goal = level_.getGoal();
         // goes through all pixels in grid and colors them according to the code in backend for each pixel
-        for (int y = 0; y < 300; y+=50) {
-            for (int x =0 ; x < 500; x+=50) {
+        for (int y = 0; y < level_.getHeight(); y += level_.getScale()) {
+            for (int x = 0 ; x < level_.getWidth(); x+= level_.getScale()) {
+
                 Color color = Color.BLACK;
                 for(int xx = 0; xx < goal.getWidth(); xx+=50){
                     for(int yy = 0; yy < goal.getHeight(); yy+=50){
@@ -53,7 +55,7 @@ public class BoardGrid extends JPanel {
                 }
                
                 // displaying each block according to color
-                int blockIndex = level_.BlockIndexAt(x+25 , y+25 );
+                int blockIndex = level_.BlockIndexAt(x + level_.getScale() / 2 , y + drawScale / 2 );
                
                 if(blockIndex >=0){
                 ColorType blockColor = level_.getBlocks().get(blockIndex).getColor();
@@ -78,7 +80,7 @@ public class BoardGrid extends JPanel {
                 }
             }
                 g2d.setColor(color);
-		        g2d.fillRect(x , y, 40, 40);
+		        g2d.fillRect(x / level_.getScale() * drawScale, y / level_.getScale() * drawScale, drawScale * 4 / 5, drawScale * 4 / 5);
             }
         }
 
