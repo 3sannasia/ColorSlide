@@ -33,7 +33,7 @@ public class Instructions extends JFrame {
         frame = new JFrame("Instructions");
 
         // Forms the instruction screen image as scrollable 
-        ImageIcon instructionsPicture = new ImageIcon("course-project-vf-a/src/Graphics/InstructionGameScreen.jpg");
+        ImageIcon instructionsPicture = new ImageIcon("src/Graphics/InstructionGameScreen.jpg");
         JLabel instructionPicLabel = new JLabel(instructionsPicture);
         scrollPanel = new JScrollPane(instructionPicLabel);
 
@@ -59,7 +59,7 @@ public class Instructions extends JFrame {
         frame = new JFrame("Instructions");
 
         // Forms the instruction screen image as scrollable 
-        ImageIcon instructionsPicture = new ImageIcon("course-project-vf-a/src/Graphics/InstructionGameScreen.jpg");
+        ImageIcon instructionsPicture = new ImageIcon("src/Graphics/InstructionGameScreen.jpg");
         JLabel instructionPicLabel = new JLabel(instructionsPicture);
         scrollPanel = new JScrollPane(instructionPicLabel);
 

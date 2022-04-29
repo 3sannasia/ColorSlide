@@ -147,7 +147,7 @@ public class ScreenState {
         if (currentLevel - 1 == 0) {
             return "src/Levels/Level1.txt";
         }
-        return "src/Levels/Level" + (currentLevel - 1) + ".txt";
+        return "src/Levels/Level" + (currentLevel - 2) + ".txt";
     }
 
     /**
