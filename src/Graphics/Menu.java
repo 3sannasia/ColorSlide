@@ -126,7 +126,7 @@ public class Menu extends JFrame implements ActionListener {
 
       
         // Image gif = getScaledImage(image, 800, 800);
-        ImageIcon icon = new ImageIcon("course-project-vf-a/src/Graphics/block-sliding.gif");
+        ImageIcon icon = new ImageIcon("src/Graphics/block-sliding.gif");
         JLabel label = new JLabel(icon);
 
         panel.add(label);

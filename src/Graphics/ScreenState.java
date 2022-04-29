@@ -141,23 +141,23 @@ public class ScreenState {
      */
     public String getPrevLevelFile(){
         if (currentLevel - 1 == 0) {
-            return "course-project-vf-a/src/Levels/Level1.txt";
+            return "src/Levels/Level1.txt";
         }
-        return "course-project-vf-a/src/Levels/Level" + (currentLevel - 1) + ".txt";
+        return "src/Levels/Level" + (currentLevel - 1) + ".txt";
     }
 
     /**
      * Returns next level file as a String
      */
     public String getNextLevelFile() {
-        return "course-project-vf-a/src/Levels/Level" + (currentLevel + 1) + ".txt";
+        return "src/Levels/Level" + (currentLevel + 1) + ".txt";
     }
 
     /**
      * Returns current level file as a String
      */
     public String getCurrentLevelFile() {
-        return "course-project-vf-a/src/Levels/Level" + currentLevel + ".txt";
+        return "src/Levels/Level" + currentLevel + ".txt";
     }
 
     /**
