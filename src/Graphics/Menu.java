@@ -101,7 +101,7 @@ public class Menu extends JFrame implements ActionListener {
         height = height_;
 
         // Setting up the window and the menu drop down
-        frame = new JFrame("Menu");
+        frame = new JFrame("Color Slide");
         menu_bar = new JMenuBar();
         menu = new JMenu("Play");
         frame.getContentPane();
