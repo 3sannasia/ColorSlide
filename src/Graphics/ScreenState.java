@@ -65,7 +65,7 @@ public class ScreenState {
         
         // Graphics2D g2d = (Graphics2D) g;
         // Creates and shows the Game Board
-        LevelBoard level = new LevelBoard(getCurrentLevelFile(), 50,25); // Returns current level file
+        LevelBoard level = new LevelBoard(getCurrentLevelFile(), 50,50); // Returns current level file
         GameBoard board = new GameBoard(width, height, level, currentLevel);
         // updateLevelFiles(currLevelFile);
 
@@ -117,7 +117,7 @@ public class ScreenState {
         if (currentLevel > 1 && currentLevel < 9) {
             
             // Creates the game board for the previous level
-            LevelBoard level = new LevelBoard(getPrevLevelFile(), 50,25); // Replace with previous level .txt
+            LevelBoard level = new LevelBoard(getPrevLevelFile(), 50,50); // Replace with previous level .txt
             currentLevel--;
             currentLevel--;
             GameBoard board = new GameBoard(width, height, level, currentLevel);
