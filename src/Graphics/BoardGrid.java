@@ -83,8 +83,6 @@ public class BoardGrid extends JPanel {
 		        g2d.fillRect(x / level_.getScale() * drawScale, y / level_.getScale() * drawScale, drawScale, drawScale);
             }
         }
-
-
     }
 	
      

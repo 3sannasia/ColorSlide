@@ -204,6 +204,7 @@ public class LevelBoard {
     // @param scale: the block unit length
     // @param speed: the speed at which blocks move across a board
     public LevelBoard(int randomness, int crowdedness, int complexity, int scale, int allowedMoves){
+        // 8-12, 5-10, 5-10, 50, 10-25
         this(randomness, randomness, scale, allowedMoves);
 
         // Add walls

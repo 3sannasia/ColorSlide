@@ -3,6 +3,7 @@ import src.GameLogic.*;
 import javax.swing.JFrame;
 import javax.swing.*;
 import src.Graphics.*;
+import java.util.Random;
 
 /**
  * Manipulates which screen to display based on buttons clicks. 
@@ -83,7 +84,18 @@ public class ScreenState {
     public void nextLevel(JFrame frame) {
         //Add game end screen
         frame.dispose();
-        LevelBoard level = new LevelBoard(getNextLevelFile(), 50,50); // Returns current level file
+        LevelBoard level;
+        if(currentLevel < 9){
+            level = new LevelBoard(getNextLevelFile(), 50,25); // Returns current level file
+        }else{
+            // 8-12, 200-215, 30-35, 50, 10-25
+            int randomness = (int)Math.random() * 4 + 8;
+            int crowdedness = (int)Math.random() * 15 + 20;
+            int complexity = (int)Math.random() * 5 + 30;
+            int scale = 50;
+            int allowedMoves = (int)Math.random() * 15 + 10;
+            level = new LevelBoard(randomness, crowdedness, complexity, scale, allowedMoves);
+        }
         currentLevel++;
         GameBoard board = new GameBoard(width, height, level, currentLevel);
         // updateLevelFiles(nextLevelFile);
@@ -102,7 +114,7 @@ public class ScreenState {
         frame.dispose();
 
         // Checks if previous level is valid
-        if (currentLevel > 1) {
+        if (currentLevel > 1 && currentLevel < 9) {
             
             // Creates the game board for the previous level
             LevelBoard level = new LevelBoard(getPrevLevelFile(), 50,50); // Replace with previous level .txt
@@ -117,6 +129,8 @@ public class ScreenState {
             board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             board.setVisible(true);
             
+        }else if(currentLevel >= 9){ // random time!!
+            // boiiiiiiiiii
         } else {
 
             // Pop-up error message for the user
