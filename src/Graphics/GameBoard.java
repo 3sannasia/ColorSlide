@@ -47,6 +47,7 @@ public class GameBoard extends JFrame implements ActionListener{
     static JMenuItem reset;
     static JFrame frame;
     static JMenuBar menu_bar;
+    static JPanel panel;
  
  
    int block_idx;
@@ -79,6 +80,13 @@ public class GameBoard extends JFrame implements ActionListener{
        settings.add(reset);
        settings.add(previousLevel);
        settings.add(quit);
+
+       ImageIcon icon = new ImageIcon("src/Graphics/block-sliding.gif");
+       JLabel label = new JLabel(icon);
+       panel = new JPanel();
+       panel.setBackground(Color.BLACK);
+       panel.add(label);
+       frame.add(panel, BorderLayout.CENTER);
 
        instructions.addActionListener(this);
        previousLevel.addActionListener(this);
@@ -126,7 +134,8 @@ public class GameBoard extends JFrame implements ActionListener{
 
 
         //labels
-        title = new JLabel("Color Logic Game");
+        title = new JLabel("Color Slide");
+        title.setForeground(Color.WHITE);
         title.setBounds(250,100, 500, 50);
         title.setFont(new Font("Book Antiqua", Font.PLAIN, 40));
         title.setForeground(Color.LIGHT_GRAY);
@@ -162,6 +171,9 @@ public class GameBoard extends JFrame implements ActionListener{
   
    }
 
+//    public void changeLevelNum(int newNum){
+//        level_num = newNum;
+//    }
  
    //-------- Button Click Action Event Listener --------//  
   

@@ -34,7 +34,7 @@ public class BoardGrid extends JPanel {
                             if(goal.getColor()==ColorType.RED){
                                 color = new Color(255, 0, 0, 175);
                             }else if(goal.getColor()==ColorType.YELLOW){
-                                color = new Color(255, 255, 0, 175);;
+                                color = new Color(255, 255, 0, 175);
                             }else if(goal.getColor()==ColorType.BLUE){
                                 color = new Color(0, 0, 255, 175);
                             }else if(goal.getColor()==ColorType.GRAY_OBS){
@@ -62,21 +62,21 @@ public class BoardGrid extends JPanel {
                 
                 // checkign for color to set in the grid
                 if(blockColor==ColorType.RED){
-                    color = Color.RED;
+                    color = new Color(255, 0, 0);
                 }else if(blockColor==ColorType.YELLOW){
-                    color = Color.YELLOW;
+                    color = new Color(255, 255, 0);
                 }else if(blockColor==ColorType.BLUE){
-                    color = Color.BLUE;
+                    color = new Color(0, 0, 255);
                 }else if(blockColor==ColorType.GRAY_OBS){
-                    color = Color.GRAY;
+                    color = new Color(100, 100, 100);
                 }else if(blockColor==ColorType.WHITE_NEUTRAL){
-                    color = Color.WHITE;
+                    color = new Color(255, 255, 255);
                 }else if(blockColor==ColorType.GREEN){
-                    color = Color.GREEN;
+                    color = new Color(0, 255, 0);
                 }else if(blockColor==ColorType.ORANGE){
-                    color = Color.ORANGE;
+                    color = new Color(255, 100, 0);
                 }else if(blockColor==ColorType.PURPLE){
-                    color = new Color(255, 0, 255); // don't know if this works
+                    color = new Color(255, 0, 255); // don't know if this works 
                 }
             }
                 g2d.setColor(color);

@@ -34,7 +34,7 @@ public class ScreenState {
      * Default constructor
      */
     public ScreenState() {
-        height = 800;
+        height = 800; 
         width = 800;
     }
 
@@ -45,7 +45,7 @@ public class ScreenState {
     public ScreenState(JFrame frame, int width_, int height_) {
         width = width_;
         height = height_;
-        frame.dispose();
+        // frame.dispose();
         
         
         // LevelBoard level = new LevelBoard(getCurrentLevelFile(), 50, 50);
@@ -168,7 +168,7 @@ public class ScreenState {
      * Creates the instruction screen components
      */
     public void displayInstructions(JFrame frame){
-        frame.dispose();
+        // frame.dispose();
         frame.setResizable(false);
         
         // Creates and instantiates the instruction screen
