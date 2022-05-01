@@ -32,21 +32,21 @@ public class BoardGrid extends JPanel {
                     for(int yy = 0; yy < goal.getHeight(); yy+=50){
                         if(x == goal.getX() + xx && y == goal.getY() + yy){
                             if(goal.getColor()==ColorType.RED){
-                                color = new Color(255, 0, 0, 175);
+                                color = new Color(255, 0, 0, 150);
                             }else if(goal.getColor()==ColorType.YELLOW){
-                                color = new Color(255, 255, 0, 175);
+                                color = new Color(255, 255, 0, 150);
                             }else if(goal.getColor()==ColorType.BLUE){
-                                color = new Color(0, 0, 255, 175);
+                                color = new Color(0, 0, 255, 150);
                             }else if(goal.getColor()==ColorType.GRAY_OBS){
-                                color = new Color(100, 100, 100, 175);
+                                color = new Color(100, 100, 100, 150);
                             }else if(goal.getColor()==ColorType.WHITE_NEUTRAL){
-                                color = new Color(255, 255, 255, 175);
+                                color = new Color(255, 255, 255, 150);
                             }else if(goal.getColor()==ColorType.GREEN){
-                                color = new Color(0, 255, 0, 175);
+                                color = new Color(0, 255, 0, 150);
                             }else if(goal.getColor()==ColorType.ORANGE){
-                                color = new Color(255, 100, 0, 175);
+                                color = new Color(255, 100, 0, 150);
                             }else if(goal.getColor()==ColorType.PURPLE){
-                                color = new Color(255, 0, 255, 175); // don't know if this works
+                                color = new Color(255, 0, 255, 150); // don't know if this works
                             } 
                         }
                     
