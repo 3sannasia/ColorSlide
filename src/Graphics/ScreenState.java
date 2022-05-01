@@ -65,7 +65,18 @@ public class ScreenState {
         
         // Graphics2D g2d = (Graphics2D) g;
         // Creates and shows the Game Board
-        LevelBoard level = new LevelBoard(getCurrentLevelFile(), 50,50); // Returns current level file
+
+        LevelBoard level;
+        if(currentLevel > 8){
+            int randomness = (int)Math.random() * 4 + 8;
+            int crowdedness = (int)Math.random() * 15 + 20;
+            int complexity = (int)Math.random() * 5 + 30;
+            int scale = 50;
+            int allowedMoves = (int)Math.random() * 15 + 100;
+            level = new LevelBoard(randomness, crowdedness, complexity, scale, allowedMoves);
+        }else{
+            level = new LevelBoard(getCurrentLevelFile(), 50,50); // Returns current level file
+        }
         GameBoard board = new GameBoard(width, height, level, currentLevel);
         // updateLevelFiles(currLevelFile);
 
