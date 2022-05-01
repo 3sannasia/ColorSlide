@@ -76,7 +76,7 @@ public class BoardGrid extends JPanel {
                 }else if(blockColor==ColorType.ORANGE){
                     color = Color.ORANGE;
                 }else if(blockColor==ColorType.PURPLE){
-                    color = Color.getHSBColor(7, 51, 51); // don't know if this works
+                    color = new Color(255, 0, 255); // don't know if this works
                 }
             }
                 g2d.setColor(color);

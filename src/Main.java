@@ -35,21 +35,18 @@ public class Main {
                 // Try reading in a Test Case
                 
 
-                LevelBoard level = new LevelBoard("src/Levels/Level1.txt", 100, 50);
+                LevelBoard level = new LevelBoard("src/Levels/Level5.txt", 100, 100);
             
-                // System.out.println(level.getLevelInfo());
-                // int indexYellowBlock1 = level.BlockIndexAt(750, 750);
-                // level.push(indexYellowBlock1, Direction.RIGHT);
-                // int indexRedBlock1 = level.BlockIndexAt(650, 150);
-                // level.push(indexRedBlock1, Direction.LEFT);
+                System.out.println(level.getLevelInfo());
+                int blockIndex = level.BlockIndexAt(150, 650);
+                level.push(blockIndex, Direction.RIGHT);
 
-
-
-                for(int i = 0; i < 6; i++){
+                for(int i = 0; i < 10; i++){
                     level.update();
                     System.out.println(level.getBoardGrid());
-                    // System.out.println(level.getBlocks().get(indexYellowBlock1).getBlockInfo());
-                    // System.out.println(level.isComplete());
+                    System.out.println(level.getBlocks().get(blockIndex).getBlockInfo());
+                    System.out.println(level.isComplete());
+                    System.out.println(level.isComplete());
                 }
             }
         });
